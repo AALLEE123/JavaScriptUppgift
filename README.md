@@ -1,6 +1,4 @@
 # JavaScriptUppgift
 Examinerande JS uppgift
 
-Turistbyro?
-
-TEST
+Semesterresort bokning 
