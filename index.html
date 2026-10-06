@@ -1,11 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <!-- Gör layouten responsiv på mobil och surfplatta. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GRUPP 8 - PORJECT ATHENA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <ol class="class"></ol>
+    <!-- Gemensam navigation. navbar-expand-lg fäller ihop länkarna på mindre skärmar. -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fs-3 fw-semibold text-primary" href="#home">Aten</a>
+            <!-- Knappen visar/döljer mobilmenyn med Bootstrap JavaScript. -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="historia.html">Historia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="upplevelser.html">Aktiviteter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="planera-resan.html">Planera resan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mat-och-dryck.html">Mat &amp; dryck</a></li>
+                    <li class="nav-item"><a class="nav-link text-primary" href="#bokningar">Boka idag</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home">
+            <!-- ratio ger herobilden samma breda format på olika skärmstorlekar. -->
+            <div class="ratio ratio-21x9">
+                <img src="bilder/aten-hero.jpg" class="w-100 h-100 object-fit-cover" alt="Akropolis i Aten vid solnedgång">
+                <!-- Den mörka transparanta ytan gör vit text lättare att läsa på bilden -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                    <div class="container text-center">
+                        <h1 class="display-3 fw-bold">Boka din Atenresa</h1>
+                        <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
+                        <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bokningar" class="container py-5">
+            <h2 class="display-5 text-center mb-4">Vad vill du boka?</h2>
+            <!-- Bootstrap grid: två kort per rad från medium-skärm och uppåt. -->
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h3 class="h4">Historia &amp; kultur</h3>
+                            <p class="fs-5 text-secondary">Museer, antiken och det moderna Aten.</p>
+                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="daniel/historia.html">Boka idag</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h3 class="h4">Upplevelser</h3>
+                            <p class="fs-5 text-secondary">Dagsutflykter, stränder och vandring.</p>
+                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="upplevelser.html">Boka idag</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h3 class="h4">Planera resan</h3>
+                            <p class="fs-5 text-secondary">Boende och transport till och i Aten.</p>
+                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="planera-resan.html">Boka idag</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h3 class="h4">Mat &amp; dryck</h3>
+                            <p class="fs-5 text-secondary">Lokala smaker, vingårdar och pistage.</p>
+                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="mat-och-dryck.html">Boka idag</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark py-4">
+        <div class="container text-center text-white-50 small">GRUPP 8 - PORJECT ATHENA</div>
+    </footer>
+
+    <!-- Bootstrap bundle behövs för att mobilmenyn ska öppnas och stängas. Jag antar att denna JS-fuktion är ok och inte anses som fusk.-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
