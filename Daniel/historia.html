@@ -1,14 +1,13 @@
-<!-- HTML5 doctype gör att Bootstrap använder rätt grundlayout. -->
 <!doctype html>
 <html lang="sv">
+
 <head>
     <meta charset="utf-8">
-    <!-- Hjälper sidan att anpassa sig till mobil och surfplatta. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boka historia i Aten</title>
-    <!-- Bootstrap CSS innehåller färdiga klasser för layout och formulär. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- navbar-expand-lg visar hela menyn på större skärmar och fäller ihop den på små. -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm">
@@ -53,12 +52,49 @@
                     <p class="fs-5 text-secondary text-center mb-4">Välj en upplevelse, ange antal personer och se priset per person.</p>
 
                     <!-- novalidate stänger av webbläsarens validering; egen JS-validering kommer senare. -->
-                    <form novalidate>
-                        <fieldset class="mb-4" aria-describedby="experienceHelp">
+                    <form id="bookingForm" novalidate>
+                        <fieldset class="mb-4" aria-describedby="experienceHelp offerError">
                             <legend class="form-label fs-5 fw-semibold">Välj upplevelse</legend>
                             <p id="experienceHelp" class="text-secondary">Priset anges per person. Välj ett av tre erbjudanden:</p>
-                            <div class="row g-3" id="offersContainer"></div>
-                            <div class="text-danger mt-2" id="offerError" aria-live="polite"></div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="card shadow-sm h-100">
+                                        <label class="card-body d-flex flex-column p-4" for="offerAcropolis">
+                                            <span class="form-check mb-3">
+                                                <input class="form-check-input" type="radio" name="offer" id="offerAcropolis">
+                                                <span class="form-check-label fw-semibold">Guidad tur vid Akropolis</span>
+                                            </span>
+                                            <span class="text-secondary mb-3">Följ med på en guidad tur bland antikens monument.</span>
+                                            <span class="mt-auto fw-semibold">450 kr / person</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-sm h-100">
+                                        <label class="card-body d-flex flex-column p-4" for="offerMuseum">
+                                            <span class="form-check mb-3">
+                                                <input class="form-check-input" type="radio" name="offer" id="offerMuseum">
+                                                <span class="form-check-label fw-semibold">Museibesök</span>
+                                            </span>
+                                            <span class="text-secondary mb-3">Upptäck Atens historia genom museernas samlingar.</span>
+                                            <span class="mt-auto fw-semibold">300 kr / person</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card shadow-sm h-100">
+                                        <label class="card-body d-flex flex-column p-4" for="offerWalk">
+                                            <span class="form-check mb-3">
+                                                <input class="form-check-input" type="radio" name="offer" id="offerWalk">
+                                                <span class="form-check-label fw-semibold">Historisk stadsvandring</span>
+                                            </span>
+                                            <span class="text-secondary mb-3">Se historiska kvarter och landmärken till fots.</span>
+                                            <span class="mt-auto fw-semibold">250 kr / person</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="offerError" class="text-danger mt-2" aria-live="polite"></div>
                         </fieldset>
 
                         <!-- for och id kopplar varje etikett till rätt formulärfält. -->
@@ -68,11 +104,15 @@
                                 <input type="text" class="form-control form-control-lg" id="visitorName" name="name" autocomplete="name">
                                 <div class="text-danger mt-1" aria-live="polite"></div>
                             </div>
+
+
                             <div class="col-md-6">
                                 <label for="visitorEmail" class="form-label fs-5">E-postadress</label>
                                 <input type="text" class="form-control form-control-lg" id="visitorEmail" name="email" autocomplete="email">
                                 <div class="text-danger mt-1" aria-live="polite"></div>
                             </div>
+
+
                             <div class="col-md-6">
                                 <label for="guests" class="form-label fs-5">Antal personer (1–5)</label>
                                 <!-- min och max visar tillåtna gränser; JavaScript ska också kontrollera dem. -->
@@ -80,12 +120,16 @@
                                 <div id="guestsHelp" class="form-text">Ange ett heltal mellan 1 och 5.</div>
                                 <div class="text-danger mt-1" aria-live="polite"></div>
                             </div>
+
+
                             <div class="col-md-6">
                                 <div class="h-100 rounded bg-light p-3" aria-live="polite">
                                     <h3 class="h5">Totalpris</h3>
                                     <p class="fs-5 mb-0">Välj ett erbjudande för att se totalpriset.</p>
                                 </div>
                             </div>
+
+
                             <div class="col-12">
                                 <div class="text-danger mb-3" aria-live="polite"></div>
                                 <div class="alert alert-success d-none" aria-live="polite"></div>
@@ -107,7 +151,8 @@
 
     <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="Daniel.js"></script>
+    <script src="historia.js"></script>
 
 </body>
+
 </html>
