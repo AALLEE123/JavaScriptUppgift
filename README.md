@@ -42,9 +42,9 @@ Webbplatsen ska låta användaren:
 
 | Namn | Bokningsområde | Ansvar |
 |---|---|---|
-| **Viktor?** | Aktiviteter | HTML, CSS och JavaScript för Activity-sidan |
+| **Alexander?** | Aktiviteter | HTML, CSS och JavaScript för Activity-sidan |
 | **Daniel** | Historia | HTML, CSS och JavaScript för History-sidan |
-| **Alexander?** | Planera resan | HTML, CSS och JavaScript för Plan Your Trip-sidan |
+| **Viktor** | Planera resan | HTML, CSS och JavaScript för Plan Your Trip-sidan |
 | **William?** | Mat & Dryck / Resort | HTML, CSS och JavaScript för Eat & Drink / Resort-sidan |
 
 > Namn markerade med `?` behöver uppdateras när ansvarsfördelningen är bekräftad.
@@ -71,15 +71,15 @@ JavaScriptUppgift/
 │
 ├── index.html
 │
-├── viktor/
+├── Alexander/
 │   ├── activities.html
 │   └── activities.js
 │
-├── daniel/
+├── Daniel/
 │   ├── history.html
 │   └── history.js
 │
-├── alexander/
+├── Viktor/
 │   ├── plan-your-trip.html
 │   └── plan-your-trip.js
 │
@@ -157,7 +157,7 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 
 ### Aktiviteter
 
-**Ansvarig:** Viktor?
+**Ansvarig:** Alexander?
 
 - 
 - 
@@ -171,9 +171,9 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 - 
 - 
 
-### Planera resan
+### Planera resan - Viktor
 
-**Ansvarig:** Alexander?
+**Ansvarig:** Viktor
 
 - 
 - 
