@@ -54,68 +54,11 @@
 
                     <!-- novalidate stänger av webbläsarens validering; egen JS-validering kommer senare. -->
                     <form novalidate>
-                        <!-- Radio-knappar med samma name låter besökaren välja ett erbjudande. data-price kan JS läsa senare. -->
-
-
-<!--
-
-NAMN & VÄRDEN
-Data-price värden:
-offerAcropolis: 450 kr/person
-offerMuseum: 300 kr/person
-offerWalk: 250 kr/person    
-#visitorName      - Textinput för namn
-#visitorEmail     - Textinput för email
-#guests           - Number input (1-5 personer)
-#offerAcropolis   - Radio button för Akropolis-tur
-#offerMuseum      - Radio button för Museumbesök
-#offerWalk        - Radio button för Stadsvandring
--->
-
-
-
                         <fieldset class="mb-4" aria-describedby="experienceHelp">
                             <legend class="form-label fs-5 fw-semibold">Välj upplevelse</legend>
                             <p id="experienceHelp" class="text-secondary">Priset anges per person. Välj ett av tre erbjudanden:</p>
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <div class="card shadow-sm h-100">
-                                        <label class="card-body d-flex flex-column p-4" for="offerAcropolis">
-                                            <span class="form-check mb-3">
-                                                <input class="form-check-input" type="radio" name="offer" id="offerAcropolis" value="acropolis-tour" data-price="450">
-                                                <span class="form-check-label fw-semibold">Guidad tur vid Akropolis</span>
-                                            </span>
-                                            <span class="text-secondary mb-3">Följ med på en guidad tur bland antikens monument.</span>
-                                            <span class="mt-auto fw-semibold">450 kr / person</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card shadow-sm h-100">
-                                        <label class="card-body d-flex flex-column p-4" for="offerMuseum">
-                                            <span class="form-check mb-3">
-                                                <input class="form-check-input" type="radio" name="offer" id="offerMuseum" value="museum-tour" data-price="300">
-                                                <span class="form-check-label fw-semibold">Museibesök</span>
-                                            </span>
-                                            <span class="text-secondary mb-3">Upptäck Atens historia genom museernas samlingar.</span>
-                                            <span class="mt-auto fw-semibold">300 kr / person</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card shadow-sm h-100">
-                                        <label class="card-body d-flex flex-column p-4" for="offerWalk">
-                                            <span class="form-check mb-3">
-                                                <input class="form-check-input" type="radio" name="offer" id="offerWalk" value="history-walk" data-price="250">
-                                                <span class="form-check-label fw-semibold">Historisk stadsvandring</span>
-                                            </span>
-                                            <span class="text-secondary mb-3">Se historiska kvarter och landmärken till fots.</span>
-                                            <span class="mt-auto fw-semibold">250 kr / person</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-danger mt-2" aria-live="polite"></div>
+                            <div class="row g-3" id="offersContainer"></div>
+                            <div class="text-danger mt-2" id="offerError" aria-live="polite"></div>
                         </fieldset>
 
                         <!-- for och id kopplar varje etikett till rätt formulärfält. -->
@@ -146,7 +89,6 @@ offerWalk: 250 kr/person
                             <div class="col-12">
                                 <div class="text-danger mb-3" aria-live="polite"></div>
                                 <div class="alert alert-success d-none" aria-live="polite"></div>
-                                <p class="text-secondary">Work in progress ingen javascript implementerad än, endast "börja om" funkar pga "type=reset" på button</p>
                                 <div class="d-grid gap-2 d-sm-flex">
                                     <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Skicka bokningsförfrågan</button>
                                     <button type="reset" class="btn btn-outline-secondary btn-lg">Börja om</button>
@@ -165,5 +107,7 @@ offerWalk: 250 kr/person
 
     <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Daniel.js"></script>
+
 </body>
 </html>

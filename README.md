@@ -96,18 +96,28 @@ JavaScriptUppgift/
 └── README.md
 ```
 
-## Tekniska krav (från uppgiften)
-
+## Tekniska krav på JAVASCRIPT (från uppgiften)
+ 
 Varje bokningssida måste innehålla:
-
-- [ ] **Erbjudanden** – Minst 3 erbjudanden i en JavaScript-array med `id`, `namn`, `beskrivning` och `pris`.
-- [ ] **Val av erbjudande** – Radio-knappar eller liknande.
-- [ ] **Prisberäkning** – Multiplicerar `pris × antal` där antal är mellan `1–5`.
-- [ ] **Formulär** – Namn, e-post, erbjudande och antal.
-- [ ] **Egen validering** – JavaScript-validering, **inte** webbläsarens inbyggda validering.
-- [ ] **Bekräftelse** – Visar en sammanfattning utan att sidan laddas om.
-- [ ] **Återställning** – En **"Börja om"**-knapp som tömmer allt.
-
+ 
+  - [ ] **Erbjudanden** – Minst 3 erbjudanden i en JavaScript-array av objekt med unikt `id`, `namn`, kort `beskrivning` och `pris` per enhet. De ska visas på sidan med JavaScript och iteration (t.ex. `forEach`), inte skrivas för hand i HTML.
+  - [ ] **Val av erbjudande** – Radio-knappar eller liknande. Det valda erbjudandet ska synas tydligt.
+  - [ ] **Prisberäkning** – En funktion som multiplicerar `pris × antal`, där antal är ett **heltal** `1–5`. Etiketten visar enheten (t.ex. personer eller timmar). Priset uppdateras när erbjudande eller antal ändras till giltiga värden. Om priset inte kan beräknas visas ett begripligt meddelande, **aldrig** `NaN`. Moms, rabatter och datum ingår inte.
+  - [ ] **Formulär** – Namn, e-post, erbjudande och antal, alla med tydliga etiketter.
+  - [ ] **Egen validering** – JavaScript-validering, **inte** webbläsarens inbyggda (`novalidate`). Följande ska kontrolleras:
+  - [ ] Namn är ifyllt och inte bara blanksteg.
+  - [ ] E-post är ifylld, saknar blanksteg och har exakt ett `@` med text före och efter. Domänen har minst en punkt med text på båda sidor.
+  - [ ] Ett giltigt erbjudande är valt.
+  - [ ] Antal är ett heltal `1–5`.
+  - [ ] Egna felmeddelanden förklarar vilket fält som är fel och varför, och tas bort eller uppdateras när felet rättas.
+  - [ ] **Bekräftelse** – Visar en sammanfattning utan att sidan laddas om, men bara när alla uppgifter är giltiga. Sammanfattningen innehåller namn, e-post, valt erbjudande, antal med enhet och totalpris, och stämmer med den bekräftade förfrågan. Efter bekräftelsen går uppgifterna **inte** att redigera.
+  - [ ] **Återställning** – En **"Börja om"**-knapp som finns både under ifyllnaden och efter bekräftelsen och som:
+  - [ ] Tömmer namn och e-post.
+  - [ ] Tar bort valt erbjudande och visuella markeringar.
+  - [ ] Sätter antal till **1**.
+  - [ ] Tar bort felmeddelanden och bekräftelse.
+  - [ ] Återställer prisvisningen till ett meddelande om att ett erbjudande måste väljas.
+  - [ ] Gör att flödet kan köras igen utan kvarvarande uppgifter eller dubblerade bekräftelser.
 
 
 ## Gemensamma regler
