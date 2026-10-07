@@ -21,7 +21,7 @@
                     <li class="nav-item"><a class="nav-link" href="historia.html">Historia</a></li>
                     <li class="nav-item"><a class="nav-link" href="upplevelser.html">Aktiviteter</a></li>
                     <li class="nav-item"><a class="nav-link" href="planera-resan.html">Planera resan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="mat-och-dryck.html">Mat &amp; dryck</a></li>
+                    <li class="nav-item"><a class="nav-link" href="mat-och-dryck.html">Mat & dryck</a></li>
                     <li class="nav-item"><a class="nav-link text-primary" href="#bokningar">Boka idag</a></li>
                 </ul>
             </div>
@@ -29,18 +29,63 @@
     </nav>
 
     <main>
-        <section id="home">
-            <!-- ratio ger herobilden samma breda format på olika skärmstorlekar. -->
-            <div class="ratio ratio-21x9">
-                <img src="bilder/aten-hero.jpg" class="w-100 h-100 object-fit-cover" alt="Akropolis i Aten vid solnedgång">
-                <!-- Den mörka transparanta ytan gör vit text lättare att läsa på bilden -->
-                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
-                    <div class="container text-center">
-                        <h1 class="display-3 fw-bold">Boka din Atenresa</h1>
-                        <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
-                        <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+        <section>
+            <div id="carouselTravel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="images/NQMIQ.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...1">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center d-flex flex-column align-items-center justify-content-center p-5">
+                                <h1 class="display-3 fw-bold">Historia & kultur</h1>
+                                <p class="fs-4 mb-4">Upptäck Atens historia genom museets samlingar.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Läs mer!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="10000">
+                        <img src="images/TGR-GettingAround-CarRental.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...2">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-3 fw-bold">Aktiviteter</h1>
+                                <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="10000">
+                        <img src="images/TGR-GettingAround-Cycling.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-3 fw-bold">Planera din resa</h1>
+                                <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="carousel-item" data-bs-interval="10000">
+                        <img src="images/TGR-GettingAround-Cycling.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-3 fw-bold">Mat & Dryck</h1>
+                                <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselTravel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselTravel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </section>
 
@@ -53,7 +98,7 @@
                         <div class="card-body d-flex flex-column p-4">
                             <h3 class="h4">Historia &amp; kultur</h3>
                             <p class="fs-5 text-secondary">Museer, antiken och det moderna Aten.</p>
-                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="daniel/historia.html">Boka idag</a>
+                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="daniel/historia.html">LÄS MER</a>
                         </div>
                     </article>
                 </div>
