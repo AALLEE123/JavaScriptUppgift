@@ -16,8 +16,11 @@
     box-shadow: 0 0 5px -3px;
     align-content: center;
 
-    .offerTitle {
+    .active ~ .offerTitle{
         cursor: pointer;
+    }
+
+    .offerTitle {
         display: grid;
         grid-template-columns: 1fr auto;
         background-color: lightblue;
@@ -86,4 +89,16 @@
 
 .offerItem:has(.offerInput:checked) {
     box-shadow: 0 0 10px -4px;
+}
+
+.formGrid {
+    display: none;
+
+    &.active {
+        display: grid;
+    }
+}
+
+footer {
+    height: 50vh;
 }
