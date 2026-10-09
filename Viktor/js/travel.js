@@ -1,5 +1,13 @@
 const offersDiv = document.querySelector('.offerGrid');
 
+const offerA = {
+    title: "Kollektivtrafik",
+    description: "The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!",
+    price: 200,
+    button: 'Boka ditt dagskort här!',
+    id: 'offerA'
+};
+
 const offerB = {
     title: "Hyr bil",
     description: "Utforska Aten och närområdet på dina villkor med en bil. There are many parking lots throughout Athens, where you can safely leave your car.",
@@ -8,7 +16,15 @@ const offerB = {
     id: 'offerB'
 };
 
-const offers = [offerB];
+const offerC = {
+    title: "Hyr cykel",
+    description: "Upplev Aten med friheten av en cykel. Although cycling in Athens is not as common as in other cities, new bike lanes exist along the central roads.",
+    price: 75,
+    button: 'Boka din cykel här!',
+    id: 'offerC'
+};
+
+const offers = [offerA, offerB, offerC];
 
 offers.forEach(obj => {
     
@@ -46,6 +62,7 @@ offers.forEach(obj => {
 
     const offerBtn = document.createElement('button')
     offerBtn.classList.add('btn', 'btn-primary');
+    offerBtn.id = `${obj.id}Btn`
     offerInfo.appendChild(offerBtn);
 
     // Lägg till relevant info från objektet
@@ -53,7 +70,5 @@ offers.forEach(obj => {
     offerDesc.textContent = obj.description;
     offerPrice.textContent = `Pris: ${obj.price} kr/dag`
     offerBtn.textContent = obj.button
-
-
 
 });
