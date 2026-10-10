@@ -89,14 +89,6 @@ function enableOfferBtns() {
     })
 }
 
-function enableForm () {
-    formDiv.classList.add('active');
-} 
-
-function disableForm () {
-    formDiv.classList.remove('active');
-} 
-
 function lockOffers() {
     offers.forEach(obj => {
         const offerInput = document.querySelector(`#${obj.id}`);
@@ -113,6 +105,14 @@ function unlockOffers() {
         offerInput.classList.add('active');
     })
 }
+
+function enableForm () {
+    formDiv.classList.add('active');
+} 
+
+function disableForm () {
+    formDiv.classList.remove('active');
+} 
 
 function enableResetBtn() {
     resetBtn.addEventListener('click', () => {
