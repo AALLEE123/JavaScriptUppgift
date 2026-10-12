@@ -78,39 +78,10 @@
             </div>
         </section>
 
-        <!-- <section id="travelBokning">
-            <h2 class="text-center my-5">Välj erbjudande</h2>
-            <div id="travelOffers" class="container">
-                <div class="row text-center d-flex justify-content-between gap-4">
-                    <article class="offer col-md card">
-                        <h3 class="card-title">Kollektivtrafik</h3>
-                        <p class="card-text text-start">The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!</p>
-                        <p class="card-text text-start">Pris: 100 kr / dag</p>
-                        
-                        <button class="btn btn-primary">Boka ditt dagskort här!</button>
-                    </article>
-                    
-                    <article class="offer col-md card">
-                        <h3 class="card-title">Hyr bil</h3>
-                        <p class="card-text text-start">Utforska Aten och närområdet på dina villkor med en bil. There are many parking lots throughout Athens, where you can safely leave your car.</p>
-                        <p class="card-text text-start">Pris: 200 kr / dag</p>
-                        <button class="btn btn-primary">Boka din bil här!</button>
-                    </article>
-                    
-                    <article class="offer col-md card">
-                        <h3 class="card-title">Hyr cykel</h3>
-                        <p class="card-text text-start">Upplev Aten med friheten av en cykel. Although cycling in Athens is not as common as in other cities, new bike lanes exist along the central roads.</p>
-                        <p class="card-text text-start">Pris: 50 kr / dag</p>
-                        <button class="btn btn-primary">Boka din cykel här!</button>
-                    </article>
-                </div>
-            </div>
-        </section> -->
-
-        <section>
-            <h2 class="text-center my-5">Välj erbjudande</h2>
+        <section id="offerSection">
+            <h2 class="text-center py-5">Välj erbjudande</h2>
             <div class="container offerGrid">
-            <!-- <article class="offerItem">
+           <!-- <article class="offerItem">
                     <input type="checkbox" name="offerAccordion" class="offerInput" id="offerA">
                     <label for="offerA" class="offerTitle">
                         <h3>Kollektivtrafik</h3>
@@ -125,21 +96,53 @@
 
         </section>
 
-        <section>
-            <div class="container formGrid">
-                <h3 class="formTitle">Valt erbjudande: </h3>
+        <section class="container" id="formSection">
+            
+            <h3 class="formTitle">Valt erbjudande: </h3>
 
+            <form class="formGrid">
 
+                <div class="formItem" id="fname">
+                    <label for="firstName">Förnamn</label>
+                    <input type="text" id="firstName">
+                </div>
 
+                <div class="formItem" id="lname">
+                    <label for="lastName">Efternamn</label>
+                    <input type="text" id="lastName">
+                </div>
 
-                <div class="formBtns">
-                    <button class="btn btn-primary">Skicka bokningsförfrågan</button>
-                    <button class="btn btn-outline-secondary" id="resetBtn">Börja om</button>
+                <div class="formItem" id="mail">
+                    <label for="eMail">E-post</label>
+                    <input type="text" id="eMail">
+                </div>
+
+                <div class="formItem" id="days">
+                    <label for="numberOfDays">Antal dagar (1-5)</label>
+                    <input type="text" id="numberOfDays">
+                    
+                </div>
+
+                <div class="formItem" id="price">
+                    <p>Totalt pris:</p>
+                    <div id="formPrice">1000 kr</div>
                 </div>
 
 
+            </form>
 
+            <div class="formBtns">
+                <button type="submit" class="btn btn-primary">Skicka bokningsförfrågan</button>
+                <button class="btn btn-outline-secondary" id="resetBtn">Börja om</button>
             </div>
+
+
+
+                
+
+
+
+
 
 
 

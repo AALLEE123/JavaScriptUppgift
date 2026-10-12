@@ -1,5 +1,5 @@
 const offersDiv = document.querySelector('.offerGrid');
-const formDiv = document.querySelector('.formGrid');
+const formSection = document.querySelector('#formSection');
 const formTitle = document.querySelector('.formTitle')
 const resetBtn = document.querySelector('#resetBtn')
 
@@ -107,11 +107,11 @@ function unlockOffers() {
 }
 
 function enableForm () {
-    formDiv.classList.add('active');
+    formSection.classList.add('active');
 } 
 
 function disableForm () {
-    formDiv.classList.remove('active');
+    formSection.classList.remove('active');
 } 
 
 function enableResetBtn() {

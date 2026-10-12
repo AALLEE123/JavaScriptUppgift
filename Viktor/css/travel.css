@@ -91,12 +91,76 @@
     box-shadow: 0 0 10px -4px;
 }
 
-.formGrid {
+#formSection {
     display: none;
+    margin-top: 4rem;
+    @media (width >= 992px) {
+        max-width: 960px;
+    }
 
     &.active {
-        display: grid;
+        display: block;
     }
+
+    p, h3 {
+        padding: 0;
+        margin: 0;
+    }
+
+    .formGrid {
+        display: grid;
+        gap: 1rem;
+        padding: 1rem 0 1.5rem;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: 
+        "fname fname"
+        "lname lname"
+        "mail mail"
+        "days price";
+
+        @media (width >= 768px) {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-areas: 
+            "fname fname lname lname"
+            "mail mail days price";
+        }
+
+        .formItem {
+            display: grid;
+            font-size: 1.25rem;
+            input {
+                height: 2.25rem;
+                min-width: 5rem;
+            }
+
+            #formPrice {
+                background-color: lightgrey;
+                display: grid;
+                place-items: center;
+                height: calc(2.25rem);
+
+                border-radius: .25rem;
+                border: 1px gray solid;
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin: 0;
+            }   
+        }
+
+        #fname{grid-area:fname}
+        #lname{grid-area:lname}
+        #mail{grid-area:mail}
+        #days{grid-area:days}
+        #price{grid-area:price}
+        
+
+
+
+    }
+
+
+
+
 }
 
 footer {
