@@ -134,46 +134,141 @@ function enableResetBtn() {
 createOffers();
 enableOfferBtns();
 enableResetBtn();
+enablePriceCheck();
 
 const form = document.querySelector('.formGrid');
 
 form.addEventListener('submit', e => {
-    e.preventDefault()
+    e.preventDefault();
 
+    const requiredInputs = form.querySelectorAll("input[required]");
+    const errors = [];
 
+    requiredInputs.forEach(input => {
+        errors.push(validateInput(input));
+    })
 
+    if (errors.includes(false)) return;
+
+    const booking = createBooking(requiredInputs)
+
+    console.log(booking);
 })
 
-const numberOfDays = document.querySelector('#numberOfDays')
-
-numberOfDays.addEventListener('change', e => {
-
-    const input = e.target;
-    let price = '-'
-    console.log(/^[1-5]$/.test(input.value.trim()))
-    if (!validateNumber(input)) {
-        setError(input,'Ange ett heltal från 1 till 5');  
-    } else {
-        removeError(input);
-        const days = Number(input.value.trim());
-        price = calculatePrice(days,chosenOffer)
-    }
-    
-    updatePrice(price)  
-})
-
-function updatePrice(price) {
-    const formPrice = document.querySelector('#formPrice')
-    formPrice.textContent = `${price} kr`
+function createBooking(inputs) {
+    const booking = {offer: chosenOffer.title};
+    inputs.forEach(input => {
+        booking[input.id] = input.value.trim();
+    })
+    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer.price);
+    return booking
 }
 
-function calculatePrice(days,offer) {
-    return days * offer.price;
+function validateInput(input) {
+    if (input.id === "numberOfDays") return validateNumber(input)
+    if (input.type === "text") return validateText(input)
+    if (input.type === "email") return validateEmail(input)
+    return false
+}
+
+function validateText(input) {
+    const value = input.value.trim();
+
+    // not empty, not less than 2 letters
+    if (value.length < 2) {
+        setError(input,'Detta fält får inte vara tomt eller mindre än två bokstäver');
+        return false;
+    }
+
+    // regex checks for swedish alphabet only + hyphen for double names
+    if (!/^[A-Za-zÅÄÖåäö-]+$/.test(value)) {
+        setError(input,'Ogiltigt tecken');
+        return false;
+    }
+
+    removeError(input);
+    return true;
+}
+
+function validateEmail(input) {
+    const value = input.value.trim();
+
+    // check for no blank spaces
+    if (value.includes(' ')) {
+        setError(input,'Får ej innehålla blanksteg');    
+        return false;
+    }
+
+    // check for only one @
+    let parts = value.split('@');
+    if (parts.length !== 2) {
+        if (value.includes('@')) {
+            setError(input,'Får bara innehålla ett @');
+        } else {
+            setError(input,'Måste innehålla ett @');
+        }     
+        return false;
+    }
+    
+    // domain part contains atleast one period
+    if (!parts[1].includes('.')) {
+        setError(input,'Måste innehålla ett toppdomän (.com, .se, ...)');     
+        return false;
+    }
+    // with text before and after
+    let partsDomain = parts[1].split('.');
+    for (let i=0; i < partsDomain.length; i++) {
+        if (partsDomain[i].length < 1) {
+            setError(input,'Måste innehålla ett domän och toppdomän (ex: gmail.com)');   
+            return false;
+        }
+    }
+
+    // regex checks for english alphabet, numbers 0-9, "-", "_", "@", "."
+    if (!/^[A-Za-z0-9._@-]+$/.test(value)) {
+        setError(input,'Ogiltigt tecken');   
+        return false;
+    }
+
+    removeError(input);
+    return true;
 }
 
 function validateNumber(input) {
+    const value = input.value.trim();
+
     // regex checks for number between 1-5
-    return /^[1-5]$/.test(input.value.trim())
+    if (!/^[1-5]$/.test(value)) {
+        setError(input,'Ange ett heltal från 1 till 5');
+        return false;
+    }
+
+    removeError(input);
+    return true;
+}
+
+function enablePriceCheck() {
+    const numberOfDays = document.querySelector('#numberOfDays');
+
+    numberOfDays.addEventListener('change', e => {
+        const input = e.target;
+        let price = '-';
+
+        if (validateNumber(input)) {
+            price = calculatePrice(input.value,chosenOffer);
+        }
+        
+        updatePrice(price);
+    })
+}
+
+function updatePrice(price) {
+    const formPrice = document.querySelector('#formPrice');
+    formPrice.textContent = `${price} kr`;
+}
+
+function calculatePrice(days,offer) {
+    return Number(days.trim()) * offer.price;
 }
 
 function setError(input, message) {
@@ -188,3 +283,5 @@ function removeError(input) {
     parent.classList.remove('error');
 }
 
+let email = "blabla@icloud.com";
+console.log(email.includes('@'))
