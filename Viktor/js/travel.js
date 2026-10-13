@@ -1,12 +1,12 @@
 const offersDiv = document.querySelector('.offerGrid');
 const formSection = document.querySelector('#formSection');
-const formTitle = document.querySelector('.formTitle')
-const resetBtn = document.querySelector('#resetBtn')
+
+
 
 const offerA = {
     title: "Kollektivtrafik",
     description: "The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!",
-    price: 200,
+    price: 100,
     button: 'Boka ditt dagskort här!',
     id: 'offerA'
 };
@@ -28,6 +28,8 @@ const offerC = {
 };
 
 const offers = [offerA, offerB, offerC];
+
+let chosenOffer = null;
 
 function createOffers() {
     offers.forEach(obj => {
@@ -84,9 +86,15 @@ function enableOfferBtns() {
         offerBtn.addEventListener('click', () => {
             enableForm();
             lockOffers();
-            formTitle.textContent = `Valt erbjudande: ${obj.title}`;
+            setChosenOffer(obj);
         })
     })
+}
+
+function setChosenOffer(offer) {
+    chosenOffer = offer
+    const formTitle = document.querySelector('.formTitle')
+    formTitle.textContent = `Valt erbjudande: ${chosenOffer.title}`;
 }
 
 function lockOffers() {
@@ -115,6 +123,8 @@ function disableForm () {
 } 
 
 function enableResetBtn() {
+    const resetBtn = document.querySelector('#resetBtn')
+
     resetBtn.addEventListener('click', () => {
         unlockOffers();
         disableForm();
@@ -124,3 +134,57 @@ function enableResetBtn() {
 createOffers();
 enableOfferBtns();
 enableResetBtn();
+
+const form = document.querySelector('.formGrid');
+
+form.addEventListener('submit', e => {
+    e.preventDefault()
+
+
+
+})
+
+const numberOfDays = document.querySelector('#numberOfDays')
+
+numberOfDays.addEventListener('change', e => {
+
+    const input = e.target;
+    let price = '-'
+    console.log(/^[1-5]$/.test(input.value.trim()))
+    if (!validateNumber(input)) {
+        setError(input,'Ange ett heltal från 1 till 5');  
+    } else {
+        removeError(input);
+        const days = Number(input.value.trim());
+        price = calculatePrice(days,chosenOffer)
+    }
+    
+    updatePrice(price)  
+})
+
+function updatePrice(price) {
+    const formPrice = document.querySelector('#formPrice')
+    formPrice.textContent = `${price} kr`
+}
+
+function calculatePrice(days,offer) {
+    return days * offer.price;
+}
+
+function validateNumber(input) {
+    // regex checks for number between 1-5
+    return /^[1-5]$/.test(input.value.trim())
+}
+
+function setError(input, message) {
+    const parent = input.parentElement;
+    const invalidText = parent.querySelector('.invalidText');
+    parent.classList.add('error');
+    invalidText.textContent = message;
+}
+
+function removeError(input) {
+    const parent = input.parentElement;
+    parent.classList.remove('error');
+}
+

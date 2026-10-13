@@ -42,7 +42,7 @@
                             <div class="container text-center">
                                 <h1 class="display-2 fw-bold">Kollektivtrafiken</h1>
                                 <p class="fs-4 mb-4 px-5">Atens kollektivtrafik är pålitlig, prisvärd och täcker stora delar av staden.</p>
-                                <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             <div class="container text-center">
                                 <h1 class="display-2 fw-bold">Hyr en bil</h1>
                                 <p class="fs-4 mb-4 px-5">Utforska Aten och närområdet på dina villkor med en bil.</p>
-                                <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             <div class="container text-center">
                                 <h1 class="display-2 fw-bold">Hyr en cykel</h1>
                                 <p class="fs-4 mb-4 px-5">Upplev Aten med friheten av en cykel.</p>
-                                <a class="btn btn-primary btn-lg" href="#bokningar">Boka idag</a>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
                             </div>
                         </div>
                     </div>
@@ -100,51 +100,42 @@
             
             <h3 class="formTitle">Valt erbjudande: </h3>
 
-            <form class="formGrid">
+            <form class="formGrid" novalidate>
 
-                <div class="formItem" id="fname">
+                <div class="formItem error" id="fname">
                     <label for="firstName">Förnamn</label>
-                    <input type="text" id="firstName">
+                    <input type="text" id="firstName" required>
+                    <p class="invalidText">fel</p>
                 </div>
 
                 <div class="formItem" id="lname">
                     <label for="lastName">Efternamn</label>
-                    <input type="text" id="lastName">
+                    <input type="text" id="lastName" required>
+                    <p class="invalidText">fel</p>
                 </div>
 
                 <div class="formItem" id="mail">
                     <label for="eMail">E-post</label>
-                    <input type="text" id="eMail">
+                    <input type="email" id="eMail" required>
+                    <p class="invalidText">fel</p>
                 </div>
 
                 <div class="formItem" id="days">
                     <label for="numberOfDays">Antal dagar (1-5)</label>
-                    <input type="text" id="numberOfDays">
-                    
+                    <input type="text" id="numberOfDays" required>
+                    <p class="invalidText">fel</p>     
                 </div>
 
                 <div class="formItem" id="price">
                     <p>Totalt pris:</p>
-                    <div id="formPrice">1000 kr</div>
+                    <div id="formPrice">- kr</div>
                 </div>
 
-
+                <div class="formBtns">
+                    <button type="submit" class="btn btn-primary">Skicka bokningsförfrågan</button>
+                    <button type="button" class="btn btn-outline-secondary" id="resetBtn">Börja om</button>
+                </div>
             </form>
-
-            <div class="formBtns">
-                <button type="submit" class="btn btn-primary">Skicka bokningsförfrågan</button>
-                <button class="btn btn-outline-secondary" id="resetBtn">Börja om</button>
-            </div>
-
-
-
-                
-
-
-
-
-
-
 
         </section>
 

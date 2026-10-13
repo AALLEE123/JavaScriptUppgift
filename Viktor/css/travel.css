@@ -1,6 +1,5 @@
 .offerGrid {
     display: grid;
-    margin-bottom: 2rem;
     @media (width >= 768px) {
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -93,7 +92,6 @@
 
 #formSection {
     display: none;
-    margin-top: 4rem;
     @media (width >= 992px) {
         max-width: 960px;
     }
@@ -107,30 +105,43 @@
         margin: 0;
     }
 
+    .formTitle {
+        margin: 3rem 0 2rem;
+    }
+
     .formGrid {
         display: grid;
         gap: 1rem;
-        padding: 1rem 0 1.5rem;
         grid-template-columns: repeat(2, 1fr);
         grid-template-areas: 
         "fname fname"
         "lname lname"
         "mail mail"
-        "days price";
+        "days price"
+        "btns btns";
 
         @media (width >= 768px) {
             grid-template-columns: repeat(4, 1fr);
             grid-template-areas: 
             "fname fname lname lname"
-            "mail mail days price";
+            "mail mail days price"
+            "btns btns . .";
         }
 
         .formItem {
             display: grid;
+            position: relative;
             font-size: 1.25rem;
             input {
                 height: 2.25rem;
                 min-width: 5rem;
+                border: 1px solid grey;
+                border-radius: .25rem;
+                padding: 0 .5rem;
+                &:focus {
+                    outline: 1px solid grey;
+
+                }
             }
 
             #formPrice {
@@ -144,7 +155,34 @@
                 font-size: 1.5rem;
                 font-weight: 700;
                 margin: 0;
-            }   
+            } 
+            
+            .invalidText{
+            display: none;
+            position: absolute;
+            bottom: -18px;
+            font-size: .8rem;
+            color: firebrick;
+            }
+
+            &.error {
+                input {
+                    border: 1px solid firebrick;
+                    border-radius: .25em;
+                    outline: 1px solid firebrick;
+                    &:focus {
+                        outline: 2px solid firebrick;
+                    }
+                }
+                .invalidText {
+                    display: block;
+                }
+            }
+        
+
+
+
+
         }
 
         #fname{grid-area:fname}
@@ -154,7 +192,12 @@
         #price{grid-area:price}
         
 
+        .formBtns {
+            grid-area:btns;
+            margin-top: 1.5rem;
+        }
 
+        
 
     }
 
@@ -164,5 +207,5 @@
 }
 
 footer {
-    height: 50vh;
+    height: 70vh;
 }
