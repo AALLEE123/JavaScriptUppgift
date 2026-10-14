@@ -136,24 +136,31 @@ enableOfferBtns();
 enableResetBtn();
 enablePriceCheck();
 
-const form = document.querySelector('.formGrid');
+function confirmBooking() {
+    const form = document.querySelector('.formGrid');
+    
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+    
+        const requiredInputs = form.querySelectorAll("input[required]");
+        const errors = [];
+    
+        requiredInputs.forEach(input => {
+            errors.push(validateInput(input));
+        })
+    
+        if (errors.includes(false)) return;
+    
+        const booking = createBooking(requiredInputs)
+    
+        console.log(booking);
 
-form.addEventListener('submit', e => {
-    e.preventDefault();
+        displayBooking(booking);
 
-    const requiredInputs = form.querySelectorAll("input[required]");
-    const errors = [];
-
-    requiredInputs.forEach(input => {
-        errors.push(validateInput(input));
     })
+}
 
-    if (errors.includes(false)) return;
 
-    const booking = createBooking(requiredInputs)
-
-    console.log(booking);
-})
 
 function createBooking(inputs) {
     const booking = {offer: chosenOffer.title};

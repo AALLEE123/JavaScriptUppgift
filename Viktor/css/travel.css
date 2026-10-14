@@ -211,3 +211,17 @@
 footer {
     height: 70vh;
 }
+
+.bookingCard {
+    display: none;
+    padding: 1rem;
+    border: 4px solid lightblue;
+    border-radius: 1rem;
+    width: fit-content;
+    font-size: 1.5rem;
+    span {
+        font-size: .75rem;
+        font-weight: 300;
+    }
+    &.active{display: grid;}
+}
