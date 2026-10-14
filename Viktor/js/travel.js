@@ -8,7 +8,8 @@ const offerA = {
     description: "The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!",
     price: 100,
     button: 'Boka ditt dagskort här!',
-    id: 'offerA'
+    id: 'offerA',
+    item: 'dagskort'
 };
 
 const offerB = {
@@ -16,7 +17,8 @@ const offerB = {
     description: "Utforska Aten och närområdet på dina villkor med en bil. There are many parking lots throughout Athens, where you can safely leave your car.",
     price: 200,
     button: 'Boka din bil här!',
-    id: 'offerB'
+    id: 'offerB',
+    item: 'bil'
 };
 
 const offerC = {
@@ -24,7 +26,8 @@ const offerC = {
     description: "Upplev Aten med friheten av en cykel. Although cycling in Athens is not as common as in other cities, new bike lanes exist along the central roads.",
     price: 75,
     button: 'Boka din cykel här!',
-    id: 'offerC'
+    id: 'offerC',
+    item: 'cykel'
 };
 
 const offers = [offerA, offerB, offerC];
@@ -85,16 +88,22 @@ function enableOfferBtns() {
         
         offerBtn.addEventListener('click', () => {
             enableForm();
+            displayFormItems();
             lockOffers();
             setChosenOffer(obj);
+            hideBooking()
         })
     })
 }
 
 function setChosenOffer(offer) {
     chosenOffer = offer
+    setFormTitle(`Valt erbjudande: ${chosenOffer.title}`)
+}
+
+function setFormTitle (msg) {
     const formTitle = document.querySelector('.formTitle')
-    formTitle.textContent = `Valt erbjudande: ${chosenOffer.title}`;
+    formTitle.textContent = msg;
 }
 
 function lockOffers() {
@@ -122,6 +131,20 @@ function disableForm () {
     formSection.classList.remove('active');
 } 
 
+function displayFormItems() {
+    const formGrid = formSection.querySelector('.formGrid')
+    formGrid.classList.add('active')
+}
+
+function hideFormItems() {
+    const formGrid = formSection.querySelector('.formGrid')
+    formGrid.classList.remove('active')
+}
+
+function clearFormItems() {
+    
+}
+
 function enableResetBtn() {
     const resetBtn = document.querySelector('#resetBtn')
 
@@ -130,11 +153,6 @@ function enableResetBtn() {
         disableForm();
     })
 }
-
-createOffers();
-enableOfferBtns();
-enableResetBtn();
-enablePriceCheck();
 
 function confirmBooking() {
     const form = document.querySelector('.formGrid');
@@ -152,22 +170,44 @@ function confirmBooking() {
         if (errors.includes(false)) return;
     
         const booking = createBooking(requiredInputs)
-    
-        console.log(booking);
 
         displayBooking(booking);
-
+        setFormTitle(`Tack för din bokning!`);
+        hideFormItems();
+        unlockOffers();
     })
 }
 
+function addBookingText(booking) {
+    const bookingText1 = formSection.querySelector('.bookingText1');
+    const bookingText2 = formSection.querySelector('.bookingText2');
+    const bookingText3 = formSection.querySelector('.bookingText3');
+    const bookingText4 = formSection.querySelector('.bookingText4');
+    const bookingText5 = formSection.querySelector('.bookingText5');
+    bookingText1.textContent = `Bokning av ${chosenOffer.item}`
+    bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
+    bookingText3.textContent = `Antal Dagar: ${booking.numberOfDays}`
+    bookingText4.textContent = `Totalt pris: ${booking.totalPrice}`
+    bookingText5.textContent = `kvitto till: ${booking.email}`
+}
 
+function displayBooking(booking) {
+    const bookingCard = formSection.querySelector('.bookingCard');
+    bookingCard.classList.add('active');
+    addBookingText(booking);
+}
+
+function hideBooking() {
+    const bookingCard = formSection.querySelector('.bookingCard');
+    bookingCard.classList.remove('active');
+}
 
 function createBooking(inputs) {
     const booking = {offer: chosenOffer.title};
     inputs.forEach(input => {
         booking[input.id] = input.value.trim();
     })
-    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer.price);
+    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer);
     return booking
 }
 
@@ -257,10 +297,10 @@ function validateNumber(input) {
 function enablePriceCheck() {
     const numberOfDays = document.querySelector('#numberOfDays');
 
-    numberOfDays.addEventListener('change', e => {
+    numberOfDays.addEventListener('input', e => {
         const input = e.target;
         let price = '-';
-
+        console.log(input.value)
         if (validateNumber(input)) {
             price = calculatePrice(input.value,chosenOffer);
         }
@@ -290,5 +330,9 @@ function removeError(input) {
     parent.classList.remove('error');
 }
 
-let email = "blabla@icloud.com";
-console.log(email.includes('@'))
+
+createOffers();
+enableOfferBtns();
+enableResetBtn();
+enablePriceCheck();
+confirmBooking();
