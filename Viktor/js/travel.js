@@ -92,6 +92,7 @@ function enableOfferBtns() {
             lockOffers();
             setChosenOffer(obj);
             hideBooking()
+            clearFormItems()
         })
     })
 }
@@ -132,17 +133,20 @@ function disableForm () {
 } 
 
 function displayFormItems() {
-    const formGrid = formSection.querySelector('.formGrid')
-    formGrid.classList.add('active')
+    const formGrid = formSection.querySelector('.formGrid');
+    formGrid.classList.add('active');
 }
 
 function hideFormItems() {
-    const formGrid = formSection.querySelector('.formGrid')
-    formGrid.classList.remove('active')
+    const formGrid = formSection.querySelector('.formGrid');
+    formGrid.classList.remove('active');
 }
 
 function clearFormItems() {
-    
+    const requiredInputs = formSection.querySelectorAll("input[required]");
+    requiredInputs.forEach(input => {
+        input.value = '';
+    })
 }
 
 function enableResetBtn() {
@@ -151,6 +155,7 @@ function enableResetBtn() {
     resetBtn.addEventListener('click', () => {
         unlockOffers();
         disableForm();
+        clearFormItems();
     })
 }
 
@@ -175,6 +180,7 @@ function confirmBooking() {
         setFormTitle(`Tack för din bokning!`);
         hideFormItems();
         unlockOffers();
+        clearFormItems();
     })
 }
 
