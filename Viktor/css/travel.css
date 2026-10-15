@@ -91,13 +91,10 @@
 }
 
 #formSection {
-    display: none;
+    display: grid;
+    
     @media (width >= 992px) {
         max-width: 960px;
-    }
-
-    &.active {
-        display: block;
     }
 
     p, h3 {
@@ -106,7 +103,11 @@
     }
 
     .formTitle {
+        display: none;
         margin: 3rem 0 2rem;
+        &.active {
+            display: block;
+        }
     }
 
     .formGrid {

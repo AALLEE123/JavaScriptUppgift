@@ -37,7 +37,7 @@ let chosenOffer = null;
 function createOffers() {
     offers.forEach(obj => {
     
-        // Skapa HTML Strukturen
+        // Create HTML structure
         const offerItem = document.createElement('article');
         offerItem.classList.add('offerItem');
         offersDiv.appendChild(offerItem);
@@ -74,7 +74,7 @@ function createOffers() {
         offerBtn.id = `${obj.id}Btn`;
         offerInfo.appendChild(offerBtn);
 
-        // Lägg till relevant info från objektet
+        // Add relevant text to offer
         offerTitleText.textContent = obj.title;
         offerDesc.textContent = obj.description;
         offerPrice.textContent = `Pris: ${obj.price} kr/dag`;
@@ -86,25 +86,19 @@ function enableOfferBtns() {
     offers.forEach(obj => {
         const offerBtn = document.querySelector(`#${obj.id}Btn`);
         
-        offerBtn.addEventListener('click', () => {
-            enableForm();
-            displayFormItems();
+        offerBtn.addEventListener('click', () => { 
             lockOffers();
             setChosenOffer(obj);
+            setFormTitle(`Valt erbjudande: ${chosenOffer.title}`);
+            displayForm();
             hideBooking()
-            clearFormItems()
+            clearForm()
         })
     })
 }
 
 function setChosenOffer(offer) {
-    chosenOffer = offer
-    setFormTitle(`Valt erbjudande: ${chosenOffer.title}`)
-}
-
-function setFormTitle (msg) {
-    const formTitle = document.querySelector('.formTitle')
-    formTitle.textContent = msg;
+    chosenOffer = offer;
 }
 
 function lockOffers() {
@@ -124,29 +118,33 @@ function unlockOffers() {
     })
 }
 
-function enableForm () {
-    formSection.classList.add('active');
-} 
+function setFormTitle(msg) {
+    const formTitle = document.querySelector('.formTitle');
+    formTitle.classList.add('active');
+    formTitle.textContent = msg;
+}
 
-function disableForm () {
-    formSection.classList.remove('active');
-} 
+function hideFormTitle() {
+    const formTitle = document.querySelector('.formTitle');
+    formTitle.classList.remove('active');
+}
 
-function displayFormItems() {
+function displayForm() {
     const formGrid = formSection.querySelector('.formGrid');
     formGrid.classList.add('active');
 }
 
-function hideFormItems() {
+function hideForm() {
     const formGrid = formSection.querySelector('.formGrid');
     formGrid.classList.remove('active');
 }
 
-function clearFormItems() {
+function clearForm() {
     const requiredInputs = formSection.querySelectorAll("input[required]");
     requiredInputs.forEach(input => {
         input.value = '';
     })
+    updatePrice('-')
 }
 
 function enableResetBtn() {
@@ -154,8 +152,9 @@ function enableResetBtn() {
 
     resetBtn.addEventListener('click', () => {
         unlockOffers();
-        disableForm();
-        clearFormItems();
+        hideForm();
+        hideFormTitle();
+        clearForm();
     })
 }
 
@@ -178,9 +177,9 @@ function confirmBooking() {
 
         displayBooking(booking);
         setFormTitle(`Tack för din bokning!`);
-        hideFormItems();
+        hideForm();
         unlockOffers();
-        clearFormItems();
+        clearForm();
     })
 }
 
@@ -193,7 +192,7 @@ function addBookingText(booking) {
     bookingText1.textContent = `Bokning av ${chosenOffer.item}`
     bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
     bookingText3.textContent = `Antal Dagar: ${booking.numberOfDays}`
-    bookingText4.textContent = `Totalt pris: ${booking.totalPrice}`
+    bookingText4.textContent = `Totalt pris: ${booking.totalPrice} kr`
     bookingText5.textContent = `kvitto till: ${booking.email}`
 }
 
@@ -306,7 +305,7 @@ function enablePriceCheck() {
     numberOfDays.addEventListener('input', e => {
         const input = e.target;
         let price = '-';
-        console.log(input.value)
+ 
         if (validateNumber(input)) {
             price = calculatePrice(input.value,chosenOffer);
         }
