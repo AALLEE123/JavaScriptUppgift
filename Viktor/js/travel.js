@@ -1,8 +1,3 @@
-const offersDiv = document.querySelector('.offerGrid');
-const formSection = document.querySelector('#formSection');
-
-
-
 const offerA = {
     title: "Kollektivtrafik",
     description: "The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!",
@@ -34,66 +29,12 @@ const offers = [offerA, offerB, offerC];
 
 let chosenOffer = null;
 
-function createOffers() {
-    offers.forEach(obj => {
-    
-        // Create HTML structure
-        const offerItem = document.createElement('article');
-        offerItem.classList.add('offerItem');
-        offersDiv.appendChild(offerItem);
+// "basic" functions
 
-        const offerInput = document.createElement('input');
-        offerInput.classList.add('offerInput','active');
-        offerInput.type = 'checkbox';
-        offerInput.name = 'offerAccordion';
-        offerInput.id = obj.id;
-        offerItem.appendChild(offerInput);
-
-        const offerTitle = document.createElement('label');
-        offerTitle.classList.add('offerTitle');
-        offerTitle.htmlFor = obj.id;
-        offerItem.appendChild(offerTitle);
-
-        const offerTitleText = document.createElement('h3');
-        offerTitle.appendChild(offerTitleText)
-
-        const offerInfo = document.createElement('div')
-        offerInfo.classList.add('offerInfo');
-        offerItem.appendChild(offerInfo);
-
-        const offerDesc = document.createElement('p')
-        offerDesc.classList.add('offerDesc');
-        offerInfo.appendChild(offerDesc);
-
-        const offerPrice = document.createElement('p')
-        offerPrice.classList.add('offerPrice');
-        offerInfo.appendChild(offerPrice);
-
-        const offerBtn = document.createElement('button')
-        offerBtn.classList.add('btn', 'btn-primary');
-        offerBtn.id = `${obj.id}Btn`;
-        offerInfo.appendChild(offerBtn);
-
-        // Add relevant text to offer
-        offerTitleText.textContent = obj.title;
-        offerDesc.textContent = obj.description;
-        offerPrice.textContent = `Pris: ${obj.price} kr/dag`;
-        offerBtn.textContent = obj.button;
-    })
-}
-
-function enableOfferBtns() {
-    offers.forEach(obj => {
-        const offerBtn = document.querySelector(`#${obj.id}Btn`);
-        
-        offerBtn.addEventListener('click', () => { 
-            lockOffers();
-            setChosenOffer(obj);
-            setFormTitle(`Valt erbjudande: ${chosenOffer.title}`);
-            displayForm();
-            hideBooking()
-            clearForm()
-        })
+function scrollToSectionId(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({
+        behavior: "smooth",
+        block: "start"
     })
 }
 
@@ -118,10 +59,10 @@ function unlockOffers() {
     })
 }
 
-function setFormTitle(msg) {
+function setFormTitle(message) {
     const formTitle = document.querySelector('.formTitle');
     formTitle.classList.add('active');
-    formTitle.textContent = msg;
+    formTitle.textContent = message;
 }
 
 function hideFormTitle() {
@@ -130,90 +71,21 @@ function hideFormTitle() {
 }
 
 function displayForm() {
-    const formGrid = formSection.querySelector('.formGrid');
+    const formGrid = document.querySelector('.formGrid');
     formGrid.classList.add('active');
 }
 
 function hideForm() {
-    const formGrid = formSection.querySelector('.formGrid');
+    const formGrid = document.querySelector('.formGrid');
     formGrid.classList.remove('active');
 }
 
 function clearForm() {
-    const requiredInputs = formSection.querySelectorAll("input[required]");
+    const requiredInputs = document.querySelectorAll("input[required]");
     requiredInputs.forEach(input => {
         input.value = '';
     })
     updatePrice('-')
-}
-
-function enableResetBtn() {
-    const resetBtn = document.querySelector('#resetBtn')
-
-    resetBtn.addEventListener('click', () => {
-        unlockOffers();
-        hideForm();
-        hideFormTitle();
-        clearForm();
-    })
-}
-
-function confirmBooking() {
-    const form = document.querySelector('.formGrid');
-    
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-    
-        const requiredInputs = form.querySelectorAll("input[required]");
-        const errors = [];
-    
-        requiredInputs.forEach(input => {
-            errors.push(validateInput(input));
-        })
-    
-        if (errors.includes(false)) return;
-    
-        const booking = createBooking(requiredInputs)
-
-        displayBooking(booking);
-        setFormTitle(`Tack för din bokning!`);
-        hideForm();
-        unlockOffers();
-        clearForm();
-    })
-}
-
-function addBookingText(booking) {
-    const bookingText1 = formSection.querySelector('.bookingText1');
-    const bookingText2 = formSection.querySelector('.bookingText2');
-    const bookingText3 = formSection.querySelector('.bookingText3');
-    const bookingText4 = formSection.querySelector('.bookingText4');
-    const bookingText5 = formSection.querySelector('.bookingText5');
-    bookingText1.textContent = `Bokning av ${chosenOffer.item}`
-    bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
-    bookingText3.textContent = `Antal Dagar: ${booking.numberOfDays}`
-    bookingText4.textContent = `Totalt pris: ${booking.totalPrice} kr`
-    bookingText5.textContent = `kvitto till: ${booking.email}`
-}
-
-function displayBooking(booking) {
-    const bookingCard = formSection.querySelector('.bookingCard');
-    bookingCard.classList.add('active');
-    addBookingText(booking);
-}
-
-function hideBooking() {
-    const bookingCard = formSection.querySelector('.bookingCard');
-    bookingCard.classList.remove('active');
-}
-
-function createBooking(inputs) {
-    const booking = {offer: chosenOffer.title};
-    inputs.forEach(input => {
-        booking[input.id] = input.value.trim();
-    })
-    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer);
-    return booking
 }
 
 function validateInput(input) {
@@ -299,6 +171,139 @@ function validateNumber(input) {
     return true;
 }
 
+function setError(input, message) {
+    const parent = input.parentElement;
+    const invalidText = parent.querySelector('.invalidText');
+    parent.classList.add('error');
+    invalidText.textContent = message;
+}
+
+function removeError(input) {
+    const parent = input.parentElement;
+    parent.classList.remove('error');
+}
+
+function updatePrice(price) {
+    const formPrice = document.querySelector('#formPrice');
+    formPrice.textContent = `${price} kr`;
+}
+
+function calculatePrice(days,offer) {
+    return Number(days.trim()) * offer.price;
+}
+
+function createBooking(inputs) {
+    const booking = {offer: chosenOffer.title};
+    inputs.forEach(input => {
+        booking[input.id] = input.value.trim();
+    })
+    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer);
+    return booking
+}
+
+function displayBooking() {
+    const bookingCard = document.querySelector('.bookingCard');
+    bookingCard.classList.add('active');
+}
+
+function hideBooking() {
+    const bookingCard = document.querySelector('.bookingCard');
+    bookingCard.classList.remove('active');
+}
+
+function addBookingText(booking) {
+    const bookingText1 = document.querySelector('.bookingText1');
+    const bookingText2 = document.querySelector('.bookingText2');
+    const bookingText3 = document.querySelector('.bookingText3');
+    const bookingText4 = document.querySelector('.bookingText4');
+    const bookingText5 = document.querySelector('.bookingText5');
+    bookingText1.textContent = `Bokning av ${chosenOffer.item}`
+    bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
+    bookingText3.textContent = `Antal Dagar: ${booking.numberOfDays}`
+    bookingText4.textContent = `Totalt pris: ${booking.totalPrice} kr`
+    bookingText5.textContent = `kvitto till: ${booking.email}`
+}
+
+// "program" functions
+
+function createOffers() {
+    const offersDiv = document.querySelector('.offerGrid');
+
+    offers.forEach(obj => {
+    
+        // Create HTML structure
+        const offerItem = document.createElement('article');
+        offerItem.classList.add('offerItem');
+        offersDiv.appendChild(offerItem);
+
+        const offerInput = document.createElement('input');
+        offerInput.classList.add('offerInput','active');
+        offerInput.type = 'checkbox';
+        offerInput.name = 'offerAccordion';
+        offerInput.id = obj.id;
+        offerItem.appendChild(offerInput);
+
+        const offerTitle = document.createElement('label');
+        offerTitle.classList.add('offerTitle');
+        offerTitle.htmlFor = obj.id;
+        offerItem.appendChild(offerTitle);
+
+        const offerTitleText = document.createElement('h3');
+        offerTitle.appendChild(offerTitleText)
+
+        const offerInfo = document.createElement('div')
+        offerInfo.classList.add('offerInfo');
+        offerItem.appendChild(offerInfo);
+
+        const offerDesc = document.createElement('p')
+        offerDesc.classList.add('offerDesc');
+        offerInfo.appendChild(offerDesc);
+
+        const offerPrice = document.createElement('p')
+        offerPrice.classList.add('offerPrice');
+        offerInfo.appendChild(offerPrice);
+
+        const offerBtn = document.createElement('button')
+        offerBtn.classList.add('btn', 'btn-primary');
+        offerBtn.id = `${obj.id}Btn`;
+        offerInfo.appendChild(offerBtn);
+
+        // Add relevant text to offer
+        offerTitleText.textContent = obj.title;
+        offerDesc.textContent = obj.description;
+        offerPrice.textContent = `Pris: ${obj.price} kr/dag`;
+        offerBtn.textContent = obj.button;
+    })
+}
+
+function enableOfferBtns() {
+    offers.forEach(obj => {
+        const offerBtn = document.querySelector(`#${obj.id}Btn`);
+        
+        offerBtn.addEventListener('click', () => { 
+            lockOffers();
+            setChosenOffer(obj);
+            setFormTitle(`Valt erbjudande: ${chosenOffer.title}`);
+            displayForm();
+            hideBooking();
+            clearForm();
+            scrollToSectionId('formSection');
+        })
+    })
+}
+
+function enableResetBtn() {
+    const resetBtn = document.querySelector('#resetBtn')
+
+    resetBtn.addEventListener('click', () => {
+        unlockOffers();
+        hideForm();
+        hideFormTitle();
+        clearForm();
+        scrollToSectionId('offerSection');
+    })
+}
+
 function enablePriceCheck() {
     const numberOfDays = document.querySelector('#numberOfDays');
 
@@ -314,28 +319,34 @@ function enablePriceCheck() {
     })
 }
 
-function updatePrice(price) {
-    const formPrice = document.querySelector('#formPrice');
-    formPrice.textContent = `${price} kr`;
+function confirmBooking() {
+    const form = document.querySelector('.formGrid');
+    
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+    
+        const requiredInputs = form.querySelectorAll("input[required]");
+        const errors = [];
+    
+        requiredInputs.forEach(input => {
+            errors.push(validateInput(input));
+        })
+    
+        if (errors.includes(false)) return;
+    
+        const booking = createBooking(requiredInputs)
+
+        addBookingText(booking)
+        displayBooking();
+        setFormTitle(`Tack för din bokning!`);
+        hideForm();
+        unlockOffers();
+        clearForm();
+        scrollToSectionId('offerSection');
+    })
 }
 
-function calculatePrice(days,offer) {
-    return Number(days.trim()) * offer.price;
-}
-
-function setError(input, message) {
-    const parent = input.parentElement;
-    const invalidText = parent.querySelector('.invalidText');
-    parent.classList.add('error');
-    invalidText.textContent = message;
-}
-
-function removeError(input) {
-    const parent = input.parentElement;
-    parent.classList.remove('error');
-}
-
-
+// run "program"
 createOffers();
 enableOfferBtns();
 enableResetBtn();
