@@ -42,7 +42,7 @@ Webbplatsen ska låta användaren:
 
 | Namn | Bokningsområde | Ansvar |
 |---|---|---|
-| **Alexander?** | Aktiviteter | HTML, CSS och JavaScript för Activity-sidan |
+| **Alexander** | Aktiviteter | HTML, CSS och JavaScript för Activity-sidan |
 | **Daniel** | Historia | HTML, CSS och JavaScript för History-sidan |
 | **Viktor** | Planera resan | HTML, CSS och JavaScript för Plan Your Trip-sidan |
 | **William?** | Mat & Dryck / Resort | HTML, CSS och JavaScript för Eat & Drink / Resort-sidan |
@@ -167,7 +167,7 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 
 ### Aktiviteter
 
-**Ansvarig:** Alexander?
+**Ansvarig:** Alexander
 
 - 
 - 
