@@ -117,6 +117,12 @@ function validateText(input) {
 function validateEmail(input) {
     const value = input.value.trim();
 
+    // check if empty
+    if (value.length === 0) {
+        setError(input,'En giltig email måste anges');
+        return false;
+    }
+
     // check for no blank spaces
     if (value.includes(' ')) {
         setError(input,'Får ej innehålla blanksteg');    
@@ -134,11 +140,18 @@ function validateEmail(input) {
         return false;
     }
     
+    // username not empty
+    if (parts[0].length === 0) {
+        setError(input, 'Måste innehålla ett username före @');
+        return false;
+    }
+
     // domain part contains atleast one period
     if (!parts[1].includes('.')) {
         setError(input,'Måste innehålla ett toppdomän (.com, .se, ...)');     
         return false;
     }
+
     // with text before and after
     let partsDomain = parts[1].split('.');
     for (let i=0; i < partsDomain.length; i++) {
