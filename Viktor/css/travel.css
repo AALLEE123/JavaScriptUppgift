@@ -18,7 +18,8 @@ body {
 }
 
 .offerItem {
-    border: 2px solid var(--primary-clr);
+    --offer-clr: var(--primary-clr);
+    border: 2px solid var(--offer-clr);
     border-radius: .5rem;
     display: grid;
     padding: 0;
@@ -32,7 +33,7 @@ body {
     .offerTitle {
         display: grid;
         grid-template-columns: 1fr auto;
-        background-color: var(--primary-clr);
+        background-color: var(--offer-clr);
         padding: 0 1rem;
         height: 3rem;
         align-items: center;
@@ -239,6 +240,6 @@ body {
 }
 
 footer {
-    height: 100vh;
+    height: 50vh;
 }
 
