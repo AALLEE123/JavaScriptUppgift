@@ -299,8 +299,8 @@ function enableOfferBtns() {
         const offerBtn = document.querySelector(`#${obj.id}Btn`);
         
         offerBtn.addEventListener('click', () => { 
-            lockOffers();
             setChosenOffer(obj);
+            lockOffers();
             setFormTitle(`Valt erbjudande: ${chosenOffer.title}`);
             displayForm();
             hideBooking();
