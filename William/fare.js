@@ -1,7 +1,4 @@
-/* =====================================================================
-   1. DATA – alla priser och regler på ETT ställe.
-   Vill ni ändra ett pris eller en gräns ändrar ni bara här.
-   ===================================================================== */
+
 const SERVICES = {
     restaurang: { label: "Restaurang – bordsbokning", pricePerPerson: 50,  maxGuests: 12 },
     cafe:       { label: "Café-rundtur",              pricePerPerson: 199, maxGuests: 10 },
@@ -14,11 +11,6 @@ const EXTRAS = {
     vip:          { label: "VIP & garderob",  pricePerPerson: 200 }
 };
  
-/* =====================================================================
-   2. HJÄLPFUNKTIONER – hitta rätt formulär och läsa av det.
-   Alla tre bokningsformulär ("paneler") använder SAMMA funktioner.
-   Varje funktion får veta vilken panel den ska jobba med.
-   ===================================================================== */
 function getPanels() {
     return Array.from(document.querySelectorAll(".booking-panel"));
 }
@@ -26,8 +18,7 @@ function getPanels() {
 function getServiceKey(panel) {
     return panel.dataset.service;
 }
- 
-// Hittar ett fält i just den här panelen, t.ex. getField(panel, "guests")
+
 function getField(panel, name) {
     return panel.querySelector('[name="' + name + '"]');
 }
@@ -40,7 +31,6 @@ function getGuests(panel) {
     return Number(getField(panel, "guests").value);
 }
  
-// Returnerar en lista med nycklar, t.ex. ["meny"], för tillval som är ikryssade
 function getSelectedExtras(panel) {
     return Array.from(panel.querySelectorAll('input[name="extra"]:checked'))
         .map(box => box.value);
@@ -54,12 +44,7 @@ function todayAsText() {
     return new Date().toISOString().split("T")[0]; // "ÅÅÅÅ-MM-DD"
 }
  
-/* =====================================================================
-   3. BERÄKNING – rena funktioner: tar emot värden, ger tillbaka resultat.
-   De rör inte sidan alls, vilket gör dem lätta att testa och återanvända.
-   ===================================================================== */
-// Bygger en lista med prisrader, t.ex. [{ label: "Café-rundtur: 3 × 199 kr", amount: 597 }, ...]
-// En rad för tjänsten och en rad för varje valt tillval.
+
 function getPriceLines(serviceKey, guests, extraKeys) {
     const service = SERVICES[serviceKey];
     const lines = [{
@@ -81,10 +66,7 @@ function calculateTotal(serviceKey, guests, extraKeys) {
         .reduce((sum, line) => sum + line.amount, 0);
 }
  
-/* =====================================================================
-   4. VALIDERING – varje regel returnerar ett felmeddelande, eller "" om allt är OK.
-   Samma regler används av alla tre formulär.
-   ===================================================================== */
+
 function validateName(value) {
     return value.trim().length >= 2 ? "" : "Ange ditt namn (minst 2 tecken).";
 }
@@ -117,8 +99,7 @@ function validateAge(isChecked) {
     return isChecked ? "" : "Du måste intyga att alla är 18 år eller äldre.";
 }
  
-// Kopplar ihop varje fältnamn med sin valideringsregel.
-// live: true betyder att fältet kontrolleras medan man skriver.
+
 const FIELD_RULES = [
     { name: "name",   check: panel => validateName(getField(panel, "name").value) },
     { name: "email",  check: panel => validateEmail(getField(panel, "email").value) },
@@ -128,14 +109,12 @@ const FIELD_RULES = [
     { name: "age",    check: panel => validateAge(getField(panel, "age").checked) }
 ];
  
-// Bara de regler vars fält faktiskt finns i den här panelen
+
 function getRulesFor(panel) {
     return FIELD_RULES.filter(rule => getField(panel, rule.name) !== null);
 }
  
-/* =====================================================================
-   5. UPPDATERA SIDAN – visa/dölj fel, sammanfattning, bekräftelse
-   ===================================================================== */
+
 function showError(panel, name, message) {
     const input = getField(panel, name);
     input.classList.add("is-invalid");
@@ -155,7 +134,7 @@ function errorIsShown(panel, name) {
     return getErrorBox(panel, name).textContent !== "";
 }
  
-// Validerar ETT fält. Returnerar true om det är OK.
+
 function validateField(panel, rule) {
     const message = rule.check(panel);
     if (message) {
@@ -166,7 +145,7 @@ function validateField(panel, rule) {
     return true;
 }
  
-// Validerar hela formuläret. Det användaren skrivit finns kvar, bara felen visas.
+
 function validateForm(panel) {
     let firstInvalidName = null;
     getRulesFor(panel).forEach(rule => {
@@ -196,7 +175,6 @@ function renderSummary(panel) {
     html += "</dl><hr>";
  
     if (guestsOk) {
-        // En rad per del av priset, så man ser hur summan räknas ut
         getPriceLines(serviceKey, guests, extraKeys).forEach(line => {
             html += '<div class="d-flex justify-content-between small"><span>' + line.label +
                 "</span><span>" + formatPrice(line.amount) + "</span></div>";
@@ -208,13 +186,13 @@ function renderSummary(panel) {
     }
     panel.querySelector("[data-summary]").innerHTML = html;
  
-    // Prisraden precis ovanför knappen
+    
     panel.querySelector("[data-price-bar]").textContent = guestsOk
         ? "Total kostnad: " + formatPrice(calculateTotal(serviceKey, guests, extraKeys))
         : "Total kostnad: ange ett giltigt antal personer";
 }
  
-// Skyddar mot att användaren skriver HTML i namnfältet
+
 function escapeHtml(text) {
     const div = document.createElement("div");
     div.textContent = text;
@@ -249,18 +227,16 @@ function resetBooking(panel) {
     renderSummary(panel);
 }
  
-// Visar panelen för vald slide och döljer de andra
+
 function showPanelFor(serviceKey) {
     getPanels().forEach(panel => {
         panel.classList.toggle("d-none", getServiceKey(panel) !== serviceKey);
     });
 }
  
-/* =====================================================================
-   6. HÄNDELSER – här kopplas allt ihop
-   ===================================================================== */
+
 function handleSubmit(event, panel) {
-    event.preventDefault(); // hindrar sidan från att laddas om (och tömma formuläret)
+    event.preventDefault(); 
     if (validateForm(panel)) {
         showConfirmation(panel);
     } else {
@@ -268,7 +244,7 @@ function handleSubmit(event, panel) {
     }
 }
  
-// Förbereder ETT formulär: texter från SERVICES/EXTRAS, händelser och första sammanfattningen
+
 function setupPanel(panel) {
     const serviceKey = getServiceKey(panel);
     const max = SERVICES[serviceKey].maxGuests;
@@ -290,8 +266,7 @@ function setupPanel(panel) {
         const input = getField(panel, rule.name);
         input.addEventListener("blur", () => validateField(panel, rule));
         input.addEventListener("input", () => {
-            // Live-fält kontrolleras medan man skriver. Övriga kontrolleras när de lämnas,
-            // men när ett fel väl visas rättas det direkt när användaren åtgärdar det.
+
             if (rule.live || errorIsShown(panel, rule.name)) validateField(panel, rule);
             renderSummary(panel);
         });
@@ -307,13 +282,10 @@ function setupPanel(panel) {
 function init() {
     document.getElementById("jsWarning").classList.add("d-none"); // filen laddades, så varningen göms
     getPanels().forEach(setupPanel);
- 
-    // När karusellen har bytt slide visas formuläret för den slidens tjänst.
-    // event.relatedTarget är den nya sliden; dess data-service säger vilken tjänst det är.
+
     document.getElementById("carouselExample").addEventListener("slid.bs.carousel", event =>
         showPanelFor(event.relatedTarget.dataset.service));
- 
-    // Börja med den slide som är aktiv när sidan laddas
+
     showPanelFor(document.querySelector("#carouselExample .carousel-item.active").dataset.service);
 }
  
