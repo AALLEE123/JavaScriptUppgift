@@ -1,6 +1,8 @@
 :root {
     --primary-clr: #0d6efd;
+    --primary-clr-hover: #0a58ca;
     --bkg-clr: #f8f9fa;
+    --bkg-clr2: white;
     --error-clr: #dc3545;
 }
 
@@ -25,7 +27,8 @@ body {
     padding: 0;
     box-shadow: 0 0 5px -3px;
     align-content: center;
-
+    background-color: var(--bkg-clr2);
+    transition: --offer-clr, .2s ease-in-out;
     .active ~ .offerTitle{
         cursor: pointer;
     }
@@ -34,6 +37,7 @@ body {
         display: grid;
         grid-template-columns: 1fr auto;
         background-color: var(--offer-clr);
+        transition: --offer-clr, .2s ease-in-out;
         padding: 0 1rem;
         height: 3rem;
         align-items: center;
@@ -100,6 +104,18 @@ body {
 
 .offerItem:has(.offerInput:checked) {
     box-shadow: 0 0 10px -4px;
+}
+
+.offerItem:has(.offerTitle:hover):has(.offerInput:enabled) {
+    --offer-clr: var(--primary-clr-hover);
+}
+
+.offerItem:has(.offerInput:disabled) {
+    --offer-clr: var(#1354b3);
+    .offerTitle {
+        h3 {color: #b1b3b4;}
+        &::after {border-color: #b1b3b4;}
+    }
 }
 
 #formSection {
@@ -225,12 +241,13 @@ body {
 
 .bookingCard {
     display: none;
+    background-color: var(--bkg-clr2);
     padding: 1rem;
     border: 4px solid var(--primary-clr);
     border-radius: 1rem;
     width: fit-content;
     font-size: 1.25rem;
-
+    box-shadow: 0 0 10px -4px;
     &.active{display: grid;}
     
     .bookingText1 {font-size: 1.5rem; font-weight: 600; text-align: center;}
