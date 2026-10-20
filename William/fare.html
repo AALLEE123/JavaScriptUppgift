@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <title> TEST </title>
+ 
+    <title>Aten – Mat & dryck</title>
 </head>
 <body>
     <header>
@@ -17,7 +17,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="navbar-nav ms-auto">
-                        <a class="nav-link" href="/Daniel/daniel.html">Historia</a>
+                        <a class="nav-link" href="/Daniel/historia.html">Historia</a>
                         <a class="nav-link" href="/Alexander/alex.html">Aktiviteter</a>
                         <a class="nav-link text-primary" href="#">Mat & dryck</a>
                         <a class="nav-link" href="/Viktor/viktor.html">Ta dig runt</a>
@@ -26,32 +26,41 @@
             </div>
         </nav>
     </header>
-
+ 
     <main>
+        <!-- ===================== KARUSELL (din kod, med data-service på varje slide) ===================== -->
         <section>
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExample" class="carousel slide">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="images/OWN-GettingAround-ComingToAthens.jpg" style="min-height: 500px; max-height: 900px;" class="d-block w-100 object-fit-cover" alt="...1">
-                        <div class="carousel-caption d-block" style="bottom: 65%">     
-                            <h1 class="display-3 fw-bold">First slide label</h1>
+                    <div class="carousel-item active" data-bs-interval="0" data-service="restaurang">
+                        <img src="images/resturang.jpg" style="min-height: 500px; max-height: 900px;" class="d-block w-100 object-fit-cover" alt="...1">
+                        <div class="carousel-caption d-block" style="bottom: 65%">
+                            <h1 class="display-3 fw-bold">Boka Restaurang</h1>
+                            <p>Some representative placeholder content for the first slide.</p>
+                            <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
                         </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/athens-airport-hd.jpg" style="min-height: 500px; max-height: 900px;" class="d-block w-100 object-fit-cover" alt="...2">
-                        <div class="carousel-caption d-block" style="bottom: 65%">     
-                            <h1 class="display-3 fw-bold">First slide label</h1>
+                    <div class="carousel-item" data-bs-interval="0" data-service="cafe">
+                        <img src="images/café.jpg" style="min-height: 500px; max-height: 900px;" class="d-block w-100 object-fit-cover" alt="...2">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-2 fw-bold">Boka Rundtur För Lokala Caféer</h1>
+                                <p class="fs-4 mb-4 px-5">Upptäck de bästa caféerna i Athene med vår rundtur!</p>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/athens-airport-hd.jpg" style="min-height: 500px; max-height: 900px;" class="d-block w-100 object-fit-cover" alt="...3">
-                        <div class="carousel-caption d-block" style="bottom: 65%">     
-                            <h1 class="display-3 fw-bold">First slide label</h1>
+                    <div class="carousel-item" data-bs-interval="0" data-service="nattklubb">
+                        <img src="images/club.jpg" style="min-height: 500px; max-height: 900px;" class="d-block w-100 object-fit-cover" alt="...3">
+                        <div class="carousel-caption d-block" style="bottom: 65%">
+                            <h1 class="display-3 fw-bold">Nattklubbar</h1>
+                            <p>Vill du njuta av nattlivet som Athene kan erbjuda?</p>
+                            <a class="btn btn-primary btn-lg" href="#offerSection">Hitta Nattklubbar nära dig!</a>
                         </div>
                     </div>
                 </div>
@@ -65,9 +74,224 @@
                 </button>
             </div>
         </section>
+ 
+        <!-- ===================== BOKNINGSFORMULÄR – ett per slide ===================== -->
+        <section id="offerSection" class="container-xl py-5">
+            <!-- Göms av booking.js när filen har laddats. Syns den är något fel med filen. -->
+            <div class="alert alert-danger" id="jsWarning" role="alert">
+                ⚠ Filen booking.js kunde inte laddas. Kontrollera att den ligger i samma mapp som index.html och heter exakt booking.js.
+            </div>
+ 
+        <div class="booking-panel" data-service="restaurang">
+            <h2 class="fw-bold mb-1">Boka bord på restaurang</h2>
+            <p class="text-muted mb-4">Välj datum, tid och antal personer.</p>
+ 
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <form novalidate>
+                        <fieldset class="mb-4">
+                            <legend class="fs-5 fw-semibold">1. Dina uppgifter</legend>
+                            <div class="mb-3">
+                                <label for="restaurang-name" class="form-label">Namn</label>
+                                <input type="text" class="form-control" id="restaurang-name" name="name" aria-describedby="restaurang-name-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="name" id="restaurang-name-error" role="alert"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="restaurang-email" class="form-label">E-post</label>
+                                <input type="email" class="form-control" id="restaurang-email" name="email" aria-describedby="restaurang-email-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="email" id="restaurang-email-error" role="alert"></div>
+                            </div>
+                        </fieldset>
+ 
+                        <fieldset class="mb-4">
+                            <legend class="fs-5 fw-semibold">2. Detaljer</legend>
+                            <div class="row">
+                                <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="restaurang-date" class="form-label">Datum</label>
+                                <input type="date" class="form-control" id="restaurang-date" name="date" aria-describedby="restaurang-date-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="date" id="restaurang-date-error" role="alert"></div>
+                            </div>
+                                </div>
+                                <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="restaurang-guests" class="form-label">Antal personer <span class="text-muted small" data-max-hint></span></label>
+                                <input type="number" class="form-control" id="restaurang-guests" name="guests" aria-describedby="restaurang-guests-error" value="2">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="guests" id="restaurang-guests-error" role="alert"></div>
+                            </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="restaurang-time" class="form-label">Tid</label>
+                                <select class="form-select" id="restaurang-time" name="time" aria-describedby="restaurang-time-error">
+                                    <option value="">Välj tid…</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                </select>
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="time" id="restaurang-time-error" role="alert"></div>
+                            </div>
+ 
+                            <div class="mb-3">
+                                <div class="fw-semibold mb-1">Tillval (pris per person)</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="extra" id="restaurang-extra-meny" value="meny">
+                                    <label class="form-check-label" for="restaurang-extra-meny">Förbeställd trerättersmeny <span class="text-muted" data-extra-price="meny"></span></label>
+                                </div>
+                            </div>
+                        </fieldset>
+ 
+                        <div class="fs-5 fw-bold mb-3" data-price-bar aria-live="polite"></div>
+                        <button type="submit" class="btn btn-primary btn-lg">Skicka bokning</button>
+                    </form>
+                </div>
+ 
+                <div class="col-lg-5">
+                    <div class="card shadow-sm" style="position: sticky; top: 1rem;">
+                        <div class="card-body" data-summary aria-live="polite"><!-- fylls av JavaScript --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="booking-panel d-none" data-service="cafe">
+            <h2 class="fw-bold mb-1">Boka rundtur för lokala caféer</h2>
+            <p class="text-muted mb-4">Upptäck de bästa caféerna med en guidad rundtur.</p>
+ 
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <form novalidate>
+                        <fieldset class="mb-4">
+                            <legend class="fs-5 fw-semibold">1. Dina uppgifter</legend>
+                            <div class="mb-3">
+                                <label for="cafe-name" class="form-label">Namn</label>
+                                <input type="text" class="form-control" id="cafe-name" name="name" aria-describedby="cafe-name-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="name" id="cafe-name-error" role="alert"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cafe-email" class="form-label">E-post</label>
+                                <input type="email" class="form-control" id="cafe-email" name="email" aria-describedby="cafe-email-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="email" id="cafe-email-error" role="alert"></div>
+                            </div>
+                        </fieldset>
+ 
+                        <fieldset class="mb-4">
+                            <legend class="fs-5 fw-semibold">2. Detaljer</legend>
+                            <div class="row">
+                                <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="cafe-date" class="form-label">Datum</label>
+                                <input type="date" class="form-control" id="cafe-date" name="date" aria-describedby="cafe-date-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="date" id="cafe-date-error" role="alert"></div>
+                            </div>
+                                </div>
+                                <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="cafe-guests" class="form-label">Antal personer <span class="text-muted small" data-max-hint></span></label>
+                                <input type="number" class="form-control" id="cafe-guests" name="guests" aria-describedby="cafe-guests-error" value="2">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="guests" id="cafe-guests-error" role="alert"></div>
+                            </div>
+                                </div>
+                            </div>
+ 
+                            <div class="mb-3">
+                                <div class="fw-semibold mb-1">Tillval (pris per person)</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="extra" id="cafe-extra-provsmakning" value="provsmakning">
+                                    <label class="form-check-label" for="cafe-extra-provsmakning">Provsmakning av grekisk kaffe &amp; bakverk <span class="text-muted" data-extra-price="provsmakning"></span></label>
+                                </div>
+                            </div>
+                        </fieldset>
+ 
+                        <div class="fs-5 fw-bold mb-3" data-price-bar aria-live="polite"></div>
+                        <button type="submit" class="btn btn-primary btn-lg">Skicka bokning</button>
+                    </form>
+                </div>
+ 
+                <div class="col-lg-5">
+                    <div class="card shadow-sm" style="position: sticky; top: 1rem;">
+                        <div class="card-body" data-summary aria-live="polite"><!-- fylls av JavaScript --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+        <div class="booking-panel d-none" data-service="nattklubb">
+            <h2 class="fw-bold mb-1">Köp entré till nattklubb</h2>
+            <p class="text-muted mb-4">Köp entré i förväg och slipp kön.</p>
+ 
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <form novalidate>
+                        <fieldset class="mb-4">
+                            <legend class="fs-5 fw-semibold">1. Dina uppgifter</legend>
+                            <div class="mb-3">
+                                <label for="nattklubb-name" class="form-label">Namn</label>
+                                <input type="text" class="form-control" id="nattklubb-name" name="name" aria-describedby="nattklubb-name-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="name" id="nattklubb-name-error" role="alert"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nattklubb-email" class="form-label">E-post</label>
+                                <input type="email" class="form-control" id="nattklubb-email" name="email" aria-describedby="nattklubb-email-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="email" id="nattklubb-email-error" role="alert"></div>
+                            </div>
+                        </fieldset>
+ 
+                        <fieldset class="mb-4">
+                            <legend class="fs-5 fw-semibold">2. Detaljer</legend>
+                            <div class="row">
+                                <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="nattklubb-date" class="form-label">Datum</label>
+                                <input type="date" class="form-control" id="nattklubb-date" name="date" aria-describedby="nattklubb-date-error">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="date" id="nattklubb-date-error" role="alert"></div>
+                            </div>
+                                </div>
+                                <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="nattklubb-guests" class="form-label">Antal personer <span class="text-muted small" data-max-hint></span></label>
+                                <input type="number" class="form-control" id="nattklubb-guests" name="guests" aria-describedby="nattklubb-guests-error" value="2">
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="guests" id="nattklubb-guests-error" role="alert"></div>
+                            </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="nattklubb-age" name="age" aria-describedby="nattklubb-age-error">
+                                    <label class="form-check-label" for="nattklubb-age">Jag intygar att alla i sällskapet är 18 år eller äldre</label>
+                                </div>
+                                <div class="text-danger small mt-1" style="min-height: 1.5rem" data-error-for="age" id="nattklubb-age-error" role="alert"></div>
+                            </div>
+ 
+                            <div class="mb-3">
+                                <div class="fw-semibold mb-1">Tillval (pris per person)</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="extra" id="nattklubb-extra-vip" value="vip">
+                                    <label class="form-check-label" for="nattklubb-extra-vip">VIP-område &amp; garderob <span class="text-muted" data-extra-price="vip"></span></label>
+                                </div>
+                            </div>
+                        </fieldset>
+ 
+                        <div class="fs-5 fw-bold mb-3" data-price-bar aria-live="polite"></div>
+                        <button type="submit" class="btn btn-primary btn-lg">Skicka bokning</button>
+                    </form>
+                </div>
+ 
+                <div class="col-lg-5">
+                    <div class="card shadow-sm" style="position: sticky; top: 1rem;">
+                        <div class="card-body" data-summary aria-live="polite"><!-- fylls av JavaScript --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
     </main>
-
-    <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn. -->
+ 
+    <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn och karusellen. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ 
+    <script src="fare.js"></script>
 </body>
 </html>
+ 
