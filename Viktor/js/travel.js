@@ -98,15 +98,20 @@ function validateInput(input) {
 function validateText(input) {
     const value = input.value.trim();
 
+    if (value.length < 1) {
+        setError(input,'Detta fält får inte vara tomt');
+        return false;
+    }
+
     // not empty, not less than 2 letters
     if (value.length < 2) {
-        setError(input,'Detta fält får inte vara tomt eller mindre än två bokstäver');
+        setError(input,'Detta fält får inte vara mindre än två bokstäver');
         return false;
     }
 
     // regex checks for swedish alphabet only + hyphen for double names
     if (!/^[A-Za-zÅÄÖåäö-]+$/.test(value)) {
-        setError(input,'Ogiltigt tecken');
+        setError(input,'Endast svenska alfabetet och bindestreck är giltiga');
         return false;
     }
 
@@ -119,7 +124,7 @@ function validateEmail(input) {
 
     // check if empty
     if (value.length === 0) {
-        setError(input,'En giltig email måste anges');
+        setError(input,'Detta fält får inte vara tomt');
         return false;
     }
 
