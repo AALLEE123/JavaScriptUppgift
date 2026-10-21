@@ -105,7 +105,13 @@ function validateText(input) {
         return false;
     }
 
-    // not empty, not less than 2 letters
+    // regex checks for swedish alphabet only + hyphen for double names
+    if (!/^[A-Za-zÅÄÖåäö-]+$/.test(value)) {
+        setError(input,'Endast svenska alfabetet och bindestreck är giltiga');
+        return false;
+    }
+
+    // not less than 2 letters
     if (value.length < 2) {
         setError(input,'Detta fält får inte vara mindre än två bokstäver');
         return false;
@@ -124,12 +130,6 @@ function validateText(input) {
                 return false;
             }
         }
-    }
-
-    // regex checks for swedish alphabet only + hyphen for double names
-    if (!/^[A-Za-zÅÄÖåäö-]+$/.test(value)) {
-        setError(input,'Endast svenska alfabetet och bindestreck är giltiga');
-        return false;
     }
 
     removeError(input);
