@@ -98,6 +98,7 @@ function validateInput(input) {
 function validateText(input) {
     const value = input.value.trim();
 
+    // check if empty
     if (value.length < 1) {
         setError(input,'Detta fält får inte vara tomt');
         return false;
@@ -107,6 +108,21 @@ function validateText(input) {
     if (value.length < 2) {
         setError(input,'Detta fält får inte vara mindre än två bokstäver');
         return false;
+    }
+
+    // check for doublenames, and then if doublename: both names are atleast 2 letters long
+    if (value.includes('-')) {
+        const parts = value.split('-')
+        if (parts.length > 2) {
+            setError(input, 'Endast dubbelnamn är tillåtna (ett bindestreck)')
+            return false
+        }
+        for (let i=0; i < parts.length; i++) {
+            if (parts[i].length < 2) {
+                setError(input,'Varje delnamn måste vara minst två bokstäver');   
+                return false;
+            }
+        }
     }
 
     // regex checks for swedish alphabet only + hyphen for double names
