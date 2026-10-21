@@ -1,6 +1,6 @@
 const offerA = {
     title: "Kollektivtrafik",
-    description: "The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!",
+    description: "Atens kollektivtrafik är pålitlig, prisvärd och täcker stora delar av staden. Med ett dagskort får du tillgång till hela kollektivtrafiken, vilket inkluderar tunnelbana, buss och spårvagn!",
     price: 100,
     button: 'Boka ditt dagskort här!',
     id: 'offerA',
@@ -9,7 +9,7 @@ const offerA = {
 
 const offerB = {
     title: "Hyr bil",
-    description: "Utforska Aten och närområdet på dina villkor med en bil. There are many parking lots throughout Athens, where you can safely leave your car.",
+    description: "Utforska Aten och närområdet på dina villkor med en bil. Det finns gott om parkeringsplatser runt om i Aten, där du kan säkert lämna din bil. Gratis parkering ingår!",
     price: 200,
     button: 'Boka din bil här!',
     id: 'offerB',
@@ -18,7 +18,7 @@ const offerB = {
 
 const offerC = {
     title: "Hyr cykel",
-    description: "Upplev Aten med friheten av en cykel. Although cycling in Athens is not as common as in other cities, new bike lanes exist along the central roads.",
+    description: "Upplev Aten med friheten av en cykel. Även fast cykling inte är lika vanligt i Aten som andra städer, så finns det ett flertal nya cykelbanor längs de centrala vägarna där du kan ta dig fram säkert.",
     price: 75,
     button: 'Boka din cykel här!',
     id: 'offerC',
@@ -84,6 +84,7 @@ function clearForm() {
     const requiredInputs = document.querySelectorAll("input[required]");
     requiredInputs.forEach(input => {
         input.value = '';
+        removeError(input)
     })
     updatePrice('-')
 }
@@ -206,13 +207,16 @@ function validateNumber(input) {
 }
 
 function setError(input, message) {
+    // Navigate from input to parent and add class to show error text
     const parent = input.parentElement;
-    const invalidText = parent.querySelector('.invalidText');
     parent.classList.add('error');
+    // find and fill error text with "message"
+    const invalidText = parent.querySelector('.invalidText');
     invalidText.textContent = message;
 }
 
 function removeError(input) {
+    // Navigate from input to parent and remove class to hide error text
     const parent = input.parentElement;
     parent.classList.remove('error');
 }
