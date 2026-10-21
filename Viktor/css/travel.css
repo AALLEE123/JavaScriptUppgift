@@ -119,12 +119,6 @@ body {
 }
 
 #formSection {
-    display: grid;
-    
-    @media (width >= 992px) {
-        max-width: 960px;
-    }
-
     p, h3 {
         padding: 0;
         margin: 0;
@@ -160,6 +154,10 @@ body {
             "btns btns . .";
         }
 
+        @media (width >= 992px) {
+            max-width: 960px;
+        }
+    
         .formItem {
             display: grid;
             position: relative;
