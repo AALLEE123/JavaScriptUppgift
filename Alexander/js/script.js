@@ -72,7 +72,7 @@ function selectOffer() {
 
             // Visa formulär
             showForm()
-            updateForm()
+            updateFormInfo()
         });
     });
 }
@@ -90,12 +90,16 @@ function hideForm () {
 function clearForm () {
     const firstName = document.getElementById("firstName");
     firstName.value = ''
+    removeError(firstName)
     const lastName = document.getElementById("lastName");
     lastName.value = ''
+    removeError(lastName)
     const email = document.getElementById("email");
     email.value = ''
+    removeError(email)
     const people = document.getElementById("people");
     people.value = 1
+    removeError(people)
 }
 
 function resetBooking () {
@@ -106,7 +110,15 @@ function resetBooking () {
     })
 }
 
-function updateForm() {
+function confirmBooking () {
+    
+
+
+
+
+}
+
+function updateFormInfo() {
     const formTitle = document.getElementById("formTitle");
     formTitle.textContent = selectedOffer.name
 
@@ -116,7 +128,7 @@ function updateForm() {
     updatePrice(selectedOffer.pricePerHour)
 }
 
-function totalPrice() {
+function calculatePrice() {
     const people = document.getElementById("people")
 
     let numberOfPeople = null
@@ -124,11 +136,16 @@ function totalPrice() {
 
     people.addEventListener('input', () => {
         
-        numberOfPeople = people.value
+        if (validatePeople(people)) {
+            numberOfPeople = people.value
 
-        price = numberOfPeople * selectedOffer.pricePerHour
+            price = numberOfPeople * selectedOffer.pricePerHour
 
-        updatePrice(price)
+            updatePrice(price)
+        } else {
+            updatePrice('-')
+        }     
+
     })    
 }
 
@@ -137,8 +154,50 @@ function updatePrice(price) {
     formTotal.textContent = price + " kr"
 }
 
+function validatePeople(input) {
+    const people = Number(input.value);
+
+    if (Number.isInteger(people) && people >= 1 && people <= 5) {
+        removeError(input);
+        return true;
+    } else {
+        addError(input,'Ange ett heltal från 1 till 5');
+        return false;
+    }
+}
+
+function validateName(input) {
+    
+
+
+}
+
+function validateEmail(input) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailPattern.test(input.value)) {
+        removeError(input);
+        return true;
+    } else {
+        addError(input,'Ange en giltig e-postadress');
+        return false;
+    }
+}
+
+function addError(input,message) {
+    const parentDiv = input.parentElement
+    parentDiv.classList.add('error')
+    const errorText = parentDiv.querySelector('.errorText')
+    errorText.textContent = message
+}
+
+function removeError(input) {
+    const parentDiv = input.parentElement
+    parentDiv.classList.remove('error')
+}
+
+
 
 renderOffers()
 selectOffer()
 resetBooking()
-totalPrice()
+calculatePrice()

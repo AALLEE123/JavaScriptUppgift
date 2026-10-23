@@ -10,3 +10,21 @@
         display: block;
     }
 }
+
+.errorText {
+    display: none;
+    color: red;
+    font-size: .75rem;
+    font-style: italic;
+    display: none;
+}
+
+.error {
+    position: relative;
+    .errorText {
+        display: inline-block;
+        position: absolute;
+        bottom: -42px;
+        
+    }
+}
