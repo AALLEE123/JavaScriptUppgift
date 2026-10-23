@@ -73,8 +73,15 @@ function selectOffer() {
     });
 }
 
+function showForm () {
+    const form = document.getElementById('form')
+    form.classList.add('active')
+}
 
-
+function hideForm () {
+    const form = document.getElementById('form')
+    form.classList.remove('active')
+}
 
 
 
