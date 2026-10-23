@@ -29,20 +29,27 @@ function renderOffers() {
   offerList.innerHTML = offers.map(createOfferCard).join("");
 }
 
+
+
 function createOfferCard(offer) {
   return `
     <div class="col-md-4">
         <div class="card h-100 shadow-sm">
-            <img src=${offer.imageUrl} class="card-img-top"
-                    alt=${offer.name} style="height: 220px; object-fit: cover;">
-            <div class="card-body">
+            <img src="${offer.imageUrl}" class="card-img-top"
+                 alt="${offer.name}" style="height: 220px; object-fit: cover;">
+            <div class="card-body d-flex flex-column">
                 <h3 class="h5">${offer.name}</h3>
                 <p>${offer.description}</p>
-                <p class="fw-bold text-primary">${offer.pricePerHour} kr/person</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <p class="fw-bold text-primary mb-0">${offer.pricePerHour} kr/person</p>
+                    <button class="btn btn-primary" onclick="selectOffer('${offer.id}')">Boka</button>
+                </div>
             </div>
         </div>
     </div>
   `;
 }
+
+
 
 renderOffers()
