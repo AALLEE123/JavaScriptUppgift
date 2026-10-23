@@ -69,6 +69,10 @@ function selectOffer() {
             // Spara det valda erbjudandet
             selectedOffer = offer;
             console.log(selectedOffer)
+
+            // Visa formulär
+            showForm()
+            updateForm()
         });
     });
 }
@@ -83,8 +87,47 @@ function hideForm () {
     form.classList.remove('active')
 }
 
+function resetBooking () {
+    const resetButton = document.getElementById('resetBooking');
+    resetButton.addEventListener('click', () => {
+        hideForm()
+    })
+}
+
+function updateForm() {
+    const formTitle = document.getElementById("formTitle");
+    formTitle.textContent = selectedOffer.name
+
+    const formPrice = document.getElementById("formPrice");
+    formPrice.textContent = selectedOffer.pricePerHour + " kr/person"
+
+    updatePrice(selectedOffer.pricePerHour)
+}
+
+function totalPrice() {
+    const people = document.getElementById("people")
+
+    let numberOfPeople = null
+    let price = null
+
+    people.addEventListener('input', () => {
+        
+        numberOfPeople = people.value
+
+        price = numberOfPeople * selectedOffer.pricePerHour
+
+        updatePrice(price)
+    })
+       
+}
+
+function updatePrice(price) {
+    const formTotal = document.getElementById("formTotal");
+    formTotal.textContent = price + " kr"
+}
 
 
 renderOffers()
 selectOffer()
-
+resetBooking()
+totalPrice()

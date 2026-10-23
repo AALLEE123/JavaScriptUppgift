@@ -3,3 +3,10 @@
 .cardMain:has(.Selected) {
     outline: 3px solid blue;
 }
+
+#form {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
