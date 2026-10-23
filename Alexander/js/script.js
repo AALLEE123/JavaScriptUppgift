@@ -87,10 +87,22 @@ function hideForm () {
     form.classList.remove('active')
 }
 
+function clearForm () {
+    const firstName = document.getElementById("firstName");
+    firstName.value = ''
+    const lastName = document.getElementById("lastName");
+    lastName.value = ''
+    const email = document.getElementById("email");
+    email.value = ''
+    const people = document.getElementById("people");
+    people.value = 1
+}
+
 function resetBooking () {
     const resetButton = document.getElementById('resetBooking');
     resetButton.addEventListener('click', () => {
         hideForm()
+        clearForm()
     })
 }
 
@@ -117,8 +129,7 @@ function totalPrice() {
         price = numberOfPeople * selectedOffer.pricePerHour
 
         updatePrice(price)
-    })
-       
+    })    
 }
 
 function updatePrice(price) {
