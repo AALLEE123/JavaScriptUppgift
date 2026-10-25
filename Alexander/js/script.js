@@ -68,11 +68,14 @@ function selectOffer() {
 
             // Spara det valda erbjudandet
             selectedOffer = offer;
-            console.log(selectedOffer)
 
-            // Visa formulär
+            // Visa, nollställ och uppdatera formulär
             showForm()
+            clearForm()
             updateFormInfo()
+
+            // Dölj bokningsbekräftels
+            hideBooking()
         });
     });
 }
@@ -107,23 +110,9 @@ function resetBooking () {
     resetButton.addEventListener('click', () => {
         hideForm()
         clearForm()
+
     })
 }
-
-// function confirmBooking () {
-//     const bookingForm = document.getElementById('bookingForm');
-    
-//     bookingForm.addEventListener('sumbit', (event) => {
-//         event.preventDefault();
-        
-//         const inputs = document.querySelectorAll("input[required]");
-
-//         console.log(inputs)
-
-
-
-//     })
-// }
 
 function confirmBooking () {
     const bookingForm = document.getElementById('bookingForm');
@@ -154,11 +143,13 @@ function confirmBooking () {
             return
         }
 
+        hideForm()
+        showBooking()
+        updateBookingInfo(selectedOffer.name, firstName.value, lastName.value, email.value, people.value, totalPrice(people.value,selectedOffer.pricePerHour))
+
 
     });
 }
-
-
 
 function updateFormInfo() {
     const formTitle = document.getElementById("formTitle");
@@ -181,7 +172,8 @@ function calculatePrice() {
         if (validatePeople(people)) {
             numberOfPeople = people.value
 
-            price = numberOfPeople * selectedOffer.pricePerHour
+            // price = numberOfPeople * selectedOffer.pricePerHour
+            price = totalPrice(numberOfPeople,selectedOffer.pricePerHour)
 
             updatePrice(price)
         } else {
@@ -189,6 +181,10 @@ function calculatePrice() {
         }     
 
     })    
+}
+
+function totalPrice(people, price) {
+    return Number(people.trim()) * price
 }
 
 function updatePrice(price) {
@@ -322,7 +318,40 @@ function removeError(input) {
     parentDiv.classList.remove('error')
 }
 
+function showBooking(){
+    const confirmedBooking = document.getElementById('confirmedBooking');
+    confirmedBooking.classList.add('active')
+}
 
+function hideBooking(){
+    const confirmedBooking = document.getElementById('confirmedBooking');
+    confirmedBooking.classList.remove('active')
+}
+
+function updateBookingInfo(offer, firstName, lastName, email, people, price){
+    // const formTitle = document.getElementById("formTitle");
+    // formTitle.textContent = selectedOffer.name
+
+    // const formPrice = document.getElementById("formPrice");
+    // formPrice.textContent = selectedOffer.pricePerHour + " kr/person"
+
+    // updatePrice(selectedOffer.pricePerHour)
+    
+    const bookingActivity = document.getElementById("confirmedActivity");
+    bookingActivity.textContent = offer;
+
+    const bookingName = document.getElementById("confirmedName")
+    bookingName.textContent = `${firstName} ${lastName}`
+
+    const bookingEmail = document.getElementById("confirmedEmail")
+    bookingEmail.textContent = `${email}`
+
+    const bookingPeople = document.getElementById("confirmedPeople")
+    bookingPeople.textContent = `${people}`
+
+    const bookingTotal = document.getElementById("confirmedPrice")
+    bookingTotal.textContent = `${price} kr`
+}
 
 renderOffers()
 selectOffer()

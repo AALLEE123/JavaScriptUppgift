@@ -28,3 +28,10 @@
         
     }
 }
+
+#confirmedBooking {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
