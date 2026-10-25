@@ -110,13 +110,55 @@ function resetBooking () {
     })
 }
 
-function confirmBooking () {
+// function confirmBooking () {
+//     const bookingForm = document.getElementById('bookingForm');
     
+//     bookingForm.addEventListener('sumbit', (event) => {
+//         event.preventDefault();
+        
+//         const inputs = document.querySelectorAll("input[required]");
+
+//         console.log(inputs)
 
 
 
+//     })
+// }
 
+function confirmBooking () {
+    const bookingForm = document.getElementById('bookingForm');
+
+    bookingForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const errors = []
+
+        const firstName = document.getElementById('firstName')
+        if (!validateName(firstName)) {
+            errors.push(false)
+        }
+        const lastName = document.getElementById('lastName')
+        if (!validateName(lastName)) {
+            errors.push(false)
+        }
+        const email = document.getElementById('email')
+        if (!validateEmail(email)) {
+            errors.push(false)
+        }
+        const people = document.getElementById('people')
+        if (!validatePeople(people)) {
+            errors.push(false)
+        }
+
+        if (errors.includes(false)) {
+            return
+        }
+
+
+    });
 }
+
+
 
 function updateFormInfo() {
     const formTitle = document.getElementById("formTitle");
@@ -167,20 +209,105 @@ function validatePeople(input) {
 }
 
 function validateName(input) {
+    const name = input.value.trim();
+    //Namnet är ifyllt och inte bara innehåller blanksteg.
+    if (name.includes(' ')) {
+        addError(input,'Namnet får inte innehålla blanksteg');
+        return false;
+    }
+    if (name === '') {
+        addError(input,'Namnet är obligatoriskt');
+        return false;
+    }
+    if (name.length < 2) {
+        addError(input,'Namnet är får inte vara mindre än två bokstäver');
+        return false;
+    }
+
+    // regex checks for swedish alphabet only + hyphen for double names
+    if (!/^[A-Za-zÅÄÖåäö-]+$/.test(name)) {
+        addError(input,'Endast svenska alfabetet och bindestreck är giltiga');
+        return false;
+    }
     
+    const nameParts = name.split('-')
+    if (nameParts.length > 3) {
+        addError(input,'endast dubbel eller trippelnamn är giltiga');
+        return false;
+    }
+    nameParts.forEach (part => {
+        if (part.length < 2) {
+            addError(input,'Namnet får inte vara mindre än två bokstäver');
+            return false;
+        }
+    })
 
-
+    removeError(input);
+    return true;
 }
 
 function validateEmail(input) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(input.value)) {
-        removeError(input);
-        return true;
-    } else {
-        addError(input,'Ange en giltig e-postadress');
+    const email = input.value.trim();
+
+    // E-postadressen är ifylld, saknar blanksteg och innehåller ett enda @ med text före och efter.
+    // Domändelen ska innehålla minst en punkt med text på båda sidor.
+
+    if (email.includes(' ')) {
+        addError(input,'Mailadressen får inte innehålla blanksteg');
         return false;
     }
+
+    if (email === '') {
+        addError(input,'Mailadressen är obligatorisk');
+        return false;
+    }
+
+    if (!email.includes('@')) {
+        addError(input,'Mailadressen måste innehålla ett @-tecken');
+        return false;
+    }
+
+    const emailParts = email.split('@');
+    if (emailParts.length !== 2) {
+        addError(input,'Mailadressen får bara innehålla ett @-tecken');
+        return false;
+    }
+
+    const username = emailParts[0];
+    if (username === '') {
+        addError(input,'Mailadressen behöver ett användarnamn');
+        return false;
+    }
+    
+    // Kontrollerar att username är mellan 1 och 64 tecken lång och endast innehåller bokstäver, siffror, understreck, bindestreck och punkter.
+    // Punkten får inte stå först eller sist, och flera punkter får inte stå direkt efter varandra.
+    if (!/^(?=.{1,64}$)[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(username)) {
+        addError(input,'Mailadressen behöver ett giltigt användarnamn');
+        return false;
+    }
+        
+    const domain = emailParts[1];
+    const domainParts = domain.split('.')
+    if (domainParts.length < 2) {
+        addError(input,'Mailadressen måste innehålla en domän och en toppdomän');
+        return false;
+    }
+
+    for (let i = 0; i < domainParts.length; i++) {
+        console.log(domainParts[i])
+        if (domainParts[i] === '') {
+            addError(input,'Domän-delarna får inte vara tomma');
+            return false;
+        }
+        
+        if (!/^[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(domainParts[i])) {
+            addError(input,'Domän-delarna får bara innehålla giltiga tecken');
+            return false;
+        }
+    }
+
+    removeError(input)
+    return true    
 }
 
 function addError(input,message) {
@@ -201,3 +328,4 @@ renderOffers()
 selectOffer()
 resetBooking()
 calculatePrice()
+confirmBooking()
