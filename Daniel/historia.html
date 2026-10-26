@@ -1,13 +1,14 @@
+<!-- HTML5 doctype gör att Bootstrap använder rätt grundlayout. -->
 <!doctype html>
 <html lang="sv">
-
 <head>
     <meta charset="utf-8">
+    <!-- Hjälper sidan att anpassa sig till mobil och surfplatta. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Boka historia i Aten</title>
+    <!-- Bootstrap CSS innehåller färdiga klasser för layout och formulär. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
     <!-- navbar-expand-lg visar hela menyn på större skärmar och fäller ihop den på små. -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm">
@@ -30,53 +31,18 @@
     </nav>
 
     <main>
-        <section>
-            <div id="carouselTravel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="images/aten-hero.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...1">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
-                            <div class="container text-center d-flex flex-column align-items-center justify-content-center p-5">
-                                <h1 class="display-3 fw-bold">Guidad tur vid Akropolis</h1>
-                                <p class="fs-4 mb-4">Följ med på en guidad tur bland antikens monument.</p>
-                                <a class="btn btn-primary btn-lg" href="#bokningar">Se pris</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/NQMIQ.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...2">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
-                            <div class="container text-center">
-                                <h1 class="display-3 fw-bold">Nationella arkeologiska museet</h1>
-                                <p class="fs-4 mb-4">Upptäck Atens historia genom museets samlingar.</p>
-                                <a class="btn btn-primary btn-lg" href="#bokningar">Se pris</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/z.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
-                            <div class="container text-center">
-                                <h1 class="display-3 fw-bold"><h1>Guidad stadsvandring</h1>
-                                <p class="fs-4 mb-4">Se historiska kvarter och landmärken till fots, tillsammans med en guide.</p>
-                                <a class="btn btn-primary btn-lg" href="#bokningar">Se pris</a>
-                            </div>
-                        </div>
+        <section id="home" aria-labelledby="hero-title">
+            <!-- Bootstrap ratio håller bilden bred och samma proportion på olika skärmar. -->
+            <div class="ratio ratio-21x9">
+                <img src="images/aten-hero.jpg" class="w-100 h-100 object-fit-cover" alt="Akropolis i Aten vid solnedgång">
+                <!-- Svart overlay tonar ner bilden så rubriken syns tydligt. -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                    <div class="container text-center">
+                        <h1 id="hero-title" class="display-3 fw-bold">Historia i Aten</h1>
+                        <p class="fs-4 mb-4">Upptäck antika monument, museer och stadens fascinerande historia.</p>
+                        <a class="btn btn-primary btn-lg" href="#bokning">Boka idag</a>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselTravel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselTravel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </section>
 
@@ -84,97 +50,55 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <h2 id="booking-title" class="display-5 text-center mb-3">Boka en historisk upplevelse</h2>
-                    <p class="fs-5 text-secondary text-center mb-4">Välj en upplevelse, ange antal personer och se priset per person.</p>
+                    <p class="fs-5 text-secondary text-center mb-4">Välj en upplevelse, ange antal personer och se totalpriset.</p>
 
-                    <!-- novalidate stänger av webbläsarens validering; egen JS-validering kommer senare. -->
                     <form id="bookingForm" novalidate>
                         <fieldset class="mb-4" aria-describedby="experienceHelp offerError">
                             <legend class="form-label fs-5 fw-semibold">Välj upplevelse</legend>
                             <p id="experienceHelp" class="text-secondary">Priset anges per person. Välj ett av tre erbjudanden:</p>
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <div class="card shadow-sm h-100">
-                                        <label class="card-body d-flex flex-column p-4" for="offerAcropolis">
-                                            <span class="form-check mb-3">
-                                                <input class="form-check-input" type="radio" name="offer" id="offerAcropolis">
-                                                <span class="form-check-label fw-semibold">Guidad tur vid Akropolis</span>
-                                            </span>
-                                            <span class="text-secondary mb-3">Följ med på en guidad tur bland antikens monument.</span>
-                                            <span class="mt-auto fw-semibold">450 kr / person</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card shadow-sm h-100">
-                                        <label class="card-body d-flex flex-column p-4" for="offerMuseum">
-                                            <span class="form-check mb-3">
-                                                <input class="form-check-input" type="radio" name="offer" id="offerMuseum">
-                                                <span class="form-check-label fw-semibold">Museibesök</span>
-                                            </span>
-                                            <span class="text-secondary mb-3">Upptäck Atens historia genom museernas samlingar.</span>
-                                            <span class="mt-auto fw-semibold">300 kr / person</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card shadow-sm h-100">
-                                        <label class="card-body d-flex flex-column p-4" for="offerWalk">
-                                            <span class="form-check mb-3">
-                                                <input class="form-check-input" type="radio" name="offer" id="offerWalk">
-                                                <span class="form-check-label fw-semibold">Historisk stadsvandring</span>
-                                            </span>
-                                            <span class="text-secondary mb-3">Se historiska kvarter och landmärken till fots.</span>
-                                            <span class="mt-auto fw-semibold">250 kr / person</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="offerError" class="text-danger mt-2" aria-live="polite"></div>
+
+                            <!-- JavaScript skapar ett kort för varje erbjudande i arrayen. -->
+                            <div id="offers" class="row g-3"></div>
+                            <div id="offerError" class="text-danger mt-1" aria-live="polite"></div>
+
                         </fieldset>
 
-                        <!-- for och id kopplar varje etikett till rätt formulärfält. -->
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <label for="visitorName" class="form-label fs-5">Namn</label>
-                                <input type="text" class="form-control form-control-lg" id="visitorName" name="name" autocomplete="name">
-                                <div class="text-danger mt-1" aria-live="polite"></div>
+                                <input type="text" class="form-control form-control-lg" id="visitorName" aria-describedby="nameError">
+                                <div id="nameError" class="text-danger mt-1" aria-live="polite"></div>
                             </div>
-
 
                             <div class="col-md-6">
                                 <label for="visitorEmail" class="form-label fs-5">E-postadress</label>
-                                <input type="text" class="form-control form-control-lg" id="visitorEmail" name="email" autocomplete="email">
-                                <div class="text-danger mt-1" aria-live="polite"></div>
+                                <input type="text" class="form-control form-control-lg" id="visitorEmail" aria-describedby="emailError">
+                                <div id="emailError" class="text-danger mt-1" aria-live="polite"></div>
                             </div>
-
 
                             <div class="col-md-6">
-                                <label for="guests" class="form-label fs-5">Antal personer (1–5)</label>
-                                <!-- min och max visar tillåtna gränser; JavaScript ska också kontrollera dem. -->
-                                <input type="number" class="form-control form-control-lg" id="guests" name="guests" min="1" max="5" step="1" value="1" aria-describedby="guestsHelp">
-                                <div id="guestsHelp" class="form-text">Ange ett heltal mellan 1 och 5.</div>
-                                <div class="text-danger mt-1" aria-live="polite"></div>
+                                <label for="guests" class="form-label fs-5">Antal personer</label>
+                                <input type="text" class="form-control form-control-lg" id="guests" aria-describedby="guestsHelp guestsError">
+                                <div id="guestsHelp" class="form-text">Ange antal personer.</div>
+                                <div id="guestsError" class="text-danger mt-1" aria-live="polite"></div>
                             </div>
-
 
                             <div class="col-md-6">
                                 <div class="h-100 rounded bg-light p-3" aria-live="polite">
                                     <h3 class="h5">Totalpris</h3>
-                                    <p class="fs-5 mb-0">Välj ett erbjudande för att se totalpriset.</p>
+                                    <p id="totalPrice" class="fs-5 mb-0">Välj ett erbjudande för att se totalpriset.</p>
                                 </div>
                             </div>
 
-
                             <div class="col-12">
-                                <div class="text-danger mb-3" aria-live="polite"></div>
-                                <div class="alert alert-success d-none" aria-live="polite"></div>
                                 <div class="d-grid gap-2 d-sm-flex">
                                     <button type="submit" class="btn btn-primary btn-lg flex-grow-1">Skicka bokningsförfrågan</button>
-                                    <button type="reset" class="btn btn-outline-secondary btn-lg">Börja om</button>
+                                    <button id="resetButton" type="button" class="btn btn-outline-secondary btn-lg">Börja om</button>
                                 </div>
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </section>
@@ -186,8 +110,6 @@
 
     <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn. -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="historia.js"></script>
-
+    <script src="Daniel.js"></script>
 </body>
-
 </html>
