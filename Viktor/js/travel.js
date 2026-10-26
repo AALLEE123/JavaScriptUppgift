@@ -27,7 +27,7 @@ const offerC = {
 
 const offers = [offerA, offerB, offerC];
 
-let chosenOffer = null;
+let chosenOffer = null; 
 let hasSubmitted = false;
 
 // "basic" functions
@@ -89,6 +89,64 @@ function clearForm() {
     })
     updatePrice('-')
 }
+
+function setError(input, message) {
+    // Navigate from input to parent and add class to show error text
+    const parent = input.parentElement;
+    parent.classList.add('error');
+    // find and fill error text with "message"
+    const invalidText = parent.querySelector('.invalidText');
+    invalidText.textContent = message;
+}
+
+function removeError(input) {
+    // Navigate from input to parent and remove class to hide error text
+    const parent = input.parentElement;
+    parent.classList.remove('error');
+}
+
+function updatePrice(price) {
+    const formPrice = document.querySelector('#formPrice');
+    formPrice.textContent = `${price} kr`;
+}
+
+function calculatePrice(days,offer) {
+    return Number(days.trim()) * offer.price;
+}
+
+function createBooking(inputs) {
+    const booking = {offer: chosenOffer.title};
+    inputs.forEach(input => {
+        booking[input.id] = input.value.trim();
+    })
+    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer);
+    return booking
+}
+
+function displayBooking() {
+    const bookingCard = document.querySelector('.bookingCard');
+    bookingCard.classList.add('active');
+}
+
+function hideBooking() {
+    const bookingCard = document.querySelector('.bookingCard');
+    bookingCard.classList.remove('active');
+}
+
+function addBookingText(booking) {
+    const bookingText1 = document.querySelector('.bookingText1');
+    const bookingText2 = document.querySelector('.bookingText2');
+    const bookingText3 = document.querySelector('.bookingText3');
+    const bookingText4 = document.querySelector('.bookingText4');
+    const bookingText5 = document.querySelector('.bookingText5');
+    bookingText1.textContent = `Bokning av ${chosenOffer.item}`
+    bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
+    bookingText3.textContent = `Antal dagar: ${booking.numberOfDays}`
+    bookingText4.textContent = `Totalt pris: ${booking.totalPrice} kr`
+    bookingText5.textContent = `kvitto till: ${booking.email}`
+}
+
+// validation functions
 
 function validateInput(input) {
     if (input.id === "numberOfDays") return validateNumber(input)
@@ -205,62 +263,6 @@ function validateNumber(input) {
 
     removeError(input);
     return true;
-}
-
-function setError(input, message) {
-    // Navigate from input to parent and add class to show error text
-    const parent = input.parentElement;
-    parent.classList.add('error');
-    // find and fill error text with "message"
-    const invalidText = parent.querySelector('.invalidText');
-    invalidText.textContent = message;
-}
-
-function removeError(input) {
-    // Navigate from input to parent and remove class to hide error text
-    const parent = input.parentElement;
-    parent.classList.remove('error');
-}
-
-function updatePrice(price) {
-    const formPrice = document.querySelector('#formPrice');
-    formPrice.textContent = `${price} kr`;
-}
-
-function calculatePrice(days,offer) {
-    return Number(days.trim()) * offer.price;
-}
-
-function createBooking(inputs) {
-    const booking = {offer: chosenOffer.title};
-    inputs.forEach(input => {
-        booking[input.id] = input.value.trim();
-    })
-    booking['totalPrice'] = calculatePrice(booking.numberOfDays,chosenOffer);
-    return booking
-}
-
-function displayBooking() {
-    const bookingCard = document.querySelector('.bookingCard');
-    bookingCard.classList.add('active');
-}
-
-function hideBooking() {
-    const bookingCard = document.querySelector('.bookingCard');
-    bookingCard.classList.remove('active');
-}
-
-function addBookingText(booking) {
-    const bookingText1 = document.querySelector('.bookingText1');
-    const bookingText2 = document.querySelector('.bookingText2');
-    const bookingText3 = document.querySelector('.bookingText3');
-    const bookingText4 = document.querySelector('.bookingText4');
-    const bookingText5 = document.querySelector('.bookingText5');
-    bookingText1.textContent = `Bokning av ${chosenOffer.item}`
-    bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
-    bookingText3.textContent = `Antal dagar: ${booking.numberOfDays}`
-    bookingText4.textContent = `Totalt pris: ${booking.totalPrice} kr`
-    bookingText5.textContent = `kvitto till: ${booking.email}`
 }
 
 // "program" functions
