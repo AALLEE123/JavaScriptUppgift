@@ -23,6 +23,8 @@ const offers = [
     }
 ];
 
+let selectedOffer = null;
+
 function renderOffers() {
   // map ger en ny array med ett kort per lokal. join gör om arrayen till en enda text.
   const offerList = document.getElementById('offerList')
@@ -46,38 +48,6 @@ function createOfferCard(offer) {
         </div>
     </div>
   `;
-}
-
-
-let selectedOffer = null;
-
-function selectOffer() {
-    offers.forEach(offer => {
-        const offerButton = document.getElementById(offer.id);
-
-        offerButton.addEventListener('click', () => {
-
-            // Ta bort markeringen från alla knappar
-            offers.forEach(otherOffer => {
-                const otherButton = document.getElementById(otherOffer.id);
-                otherButton.classList.remove('Selected');
-            });
-
-            // Markera den valda knappen
-            offerButton.classList.add('Selected');
-
-            // Spara det valda erbjudandet
-            selectedOffer = offer;
-
-            // Visa, nollställ och uppdatera formulär
-            showForm()
-            clearForm()
-            updateFormInfo()
-
-            // Dölj bokningsbekräftels
-            hideBooking()
-        });
-    });
 }
 
 function showForm () {
@@ -352,6 +322,38 @@ function updateBookingInfo(offer, firstName, lastName, email, people, price){
     const bookingTotal = document.getElementById("confirmedPrice")
     bookingTotal.textContent = `${price} kr`
 }
+
+// knappar
+
+function selectOffer() {
+    offers.forEach(offer => {
+        const offerButton = document.getElementById(offer.id);
+
+        offerButton.addEventListener('click', () => {
+
+            // Ta bort markeringen från alla knappar
+            offers.forEach(otherOffer => {
+                const otherButton = document.getElementById(otherOffer.id);
+                otherButton.classList.remove('Selected');
+            });
+
+            // Markera den valda knappen
+            offerButton.classList.add('Selected');
+
+            // Spara det valda erbjudandet
+            selectedOffer = offer;
+
+            // Visa, nollställ och uppdatera formulär
+            showForm()
+            clearForm()
+            updateFormInfo()
+
+            // Dölj bokningsbekräftels
+            hideBooking()
+        });
+    });
+}
+
 
 renderOffers()
 selectOffer()
