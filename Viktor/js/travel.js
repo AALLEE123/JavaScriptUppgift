@@ -28,6 +28,7 @@ const offerC = {
 const offers = [offerA, offerB, offerC];
 
 let chosenOffer = null;
+let hasSubmitted = false;
 
 // "basic" functions
 
@@ -257,7 +258,7 @@ function addBookingText(booking) {
     const bookingText5 = document.querySelector('.bookingText5');
     bookingText1.textContent = `Bokning av ${chosenOffer.item}`
     bookingText2.textContent = `För: ${booking.firstName} ${booking.lastName}`
-    bookingText3.textContent = `Antal Dagar: ${booking.numberOfDays}`
+    bookingText3.textContent = `Antal dagar: ${booking.numberOfDays}`
     bookingText4.textContent = `Totalt pris: ${booking.totalPrice} kr`
     bookingText5.textContent = `kvitto till: ${booking.email}`
 }
@@ -339,6 +340,7 @@ function enableResetBtn() {
         hideFormTitle();
         clearForm();
         scrollToSectionId('offerSection');
+        hasSubmitted = false;
     })
 }
 
@@ -357,6 +359,20 @@ function enablePriceCheck() {
     })
 }
 
+function enableRealtimeValidation() {
+    const inputs = document.querySelectorAll('input[required]');
+
+    inputs.forEach(input => {
+        if(input.id !== 'numberOfDays'){
+            input.addEventListener('change', () => {
+                if(hasSubmitted) {
+                    validateInput(input);
+                }
+            })
+        }
+    })
+}
+
 function confirmBooking() {
     const form = document.querySelector('.formGrid');
     
@@ -370,6 +386,8 @@ function confirmBooking() {
             errors.push(validateInput(input));
         })
     
+        hasSubmitted = true;
+
         if (errors.includes(false)) return;
     
         const booking = createBooking(requiredInputs)
@@ -389,4 +407,5 @@ createOffers();
 enableOfferBtns();
 enableResetBtn();
 enablePriceCheck();
+enableRealtimeValidation();
 confirmBooking();
