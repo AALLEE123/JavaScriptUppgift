@@ -73,14 +73,21 @@ Vi använder följande prefix för våra Git commits:
 
 ## Github branches
 
+| Branch-namn | Del | Ansvar |
+|---|---|---|
+| landing | Landing page | alla för sin del |
+| Historia | Ta dig runt | Daniel |
+| upplevelser | Upplevelser | Alexander |
+| fare | Mat & Dryck | William |
+| travel | Ta dig runt | Viktor |
 
-
+---
 
 ## Personliga anteckningar
 
 Detta avsnitt används för personliga anteckningar, idéer och uppgifter för respektive bokningsområde.
 
-### Aktiviteter
+### Upplevelser
 
 **Ansvarig:** Alexander
 
@@ -96,12 +103,12 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 - 
 - 
 
-### Planera resan - Viktor
+### Ta dig runt - Viktor
 
 **Ansvarig:** Viktor
 
 - Valde att inte ha ifyllt "1" på antal dagar, då jag inte vill att man kan råka skicka formuläret innan man har valt vad man faktiskt vill ha.
-- 
+- Valde också type=text input på antal dagar för att jag inte ville ha pilarna som kom med type=number.
 - 
 
 ### Mat & Dryck / Resort
