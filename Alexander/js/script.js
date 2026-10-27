@@ -84,14 +84,18 @@ function resetBooking () {
     })
 }
 
+// När vi trycker på boka-knappen ska vi validera formuläret och om allt är korrekt fyllt i ska vi visa bokningsbekräftelsen med informationen från formuläret.
+
 function confirmBooking () {
+    // Definiera en variabel för formuläret
     const bookingForm = document.getElementById('bookingForm');
-
+    // Lägg till en eventlyssnare för formulärets submit-händelse
     bookingForm.addEventListener('submit', function(event) {
+        // Förhindra att formuläret skickas och sidan laddas om
         event.preventDefault();
-
+        // Samla alla fel i en array
         const errors = []
-
+        // Validera varje fält och lägg till false i errors-arrayen om valideringen misslyckas
         const firstName = document.getElementById('firstName')
         if (!validateName(firstName)) {
             errors.push(false)
@@ -108,11 +112,11 @@ function confirmBooking () {
         if (!validatePeople(people)) {
             errors.push(false)
         }
-
+        // Om det finns några fel i errors-arrayen, returnerar vi och gör inget mer.
         if (errors.includes(false)) {
             return
         }
-
+        // Om alla fält är korrekt ifyllda, döljer vi formuläret och visar bokningsbekräftelsen med informationen från formuläret.
         hideForm()
         showBooking()
         updateBookingInfo(selectedOffer.name, firstName.value, lastName.value, email.value, people.value, totalPrice(people.value,selectedOffer.pricePerHour))
@@ -176,7 +180,7 @@ function validatePeople(input) {
 
 function validateName(input) {
     const name = input.value.trim();
-    //Namnet är ifyllt och inte bara innehåller blanksteg.
+    // Namnet är ifyllt och inte bara innehåller blanksteg.
     if (name.includes(' ')) {
         addError(input,'Namnet får inte innehålla blanksteg');
         return false;
@@ -190,7 +194,6 @@ function validateName(input) {
         return false;
     }
 
-    // regex checks for swedish alphabet only + hyphen for double names
     if (!/^[A-Za-zÅÄÖåäö-]+$/.test(name)) {
         addError(input,'Endast svenska alfabetet och bindestreck är giltiga');
         return false;
@@ -198,23 +201,18 @@ function validateName(input) {
     
     const nameParts = name.split('-')
     if (nameParts.length > 3) {
-        addError(input,'endast dubbel eller trippelnamn är giltiga');
+        addError(input,'endast enkel, dubbel eller trippelnamn är giltiga');
         return false;
     }
-
+    // Går igenom varje del av namnet och kontrollerar att varje del är minst två bokstäver lång.
     for (let i = 0; i < nameParts.length; i++) {
         if (nameParts[i].length < 2) {
             addError(input,'Namnet får inte vara mindre än två bokstäver');
             return false;
         }
     }
-    // nameParts.forEach (part => {
-    //     if (part.length < 2) {
-    //         addError(input,'Namnet får inte vara mindre än två bokstäver');
-    //         return false;
-    //     }
-    // })
 
+    // Om alla kontroller passerar, tar vi bort eventuella felmeddelanden och returnerar true.
     removeError(input);
     return true;
 }
