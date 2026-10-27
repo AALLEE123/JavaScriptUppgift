@@ -1,0 +1,37 @@
+
+
+.cardMain:has(.Selected) {
+    outline: 3px solid blue;
+}
+
+#form {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+.errorText {
+    display: none;
+    color: red;
+    font-size: .75rem;
+    font-style: italic;
+    display: none;
+}
+
+.error {
+    position: relative;
+    .errorText {
+        display: inline-block;
+        position: absolute;
+        bottom: -42px;
+        
+    }
+}
+
+#confirmedBooking {
+    display: none;
+    &.active {
+        display: block;
+    }
+}

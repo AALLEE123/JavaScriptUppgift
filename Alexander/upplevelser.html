@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/aef312987b.js" crossorigin="anonymous"></script>
+    <title> Upplevelser och aktiviteter </title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm">
+            <div class="container-xl">
+                <a class="navbar-brand fs-3 fw-semibold text-primary" href="#"><span style="font-size: 2rem; color: #007bff;"><i class="fa-solid fa-building-columns"></i></span>Aten</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="navbar-nav ms-auto">
+                        <a class="nav-link" href="#">Historia</a>
+                        <a class="nav-link text-primary" href="#">Aktiviteter</a>
+                        <a class="nav-link" href="#">Planera resan</a>
+                        <a class="nav-link" href="#">Mat & dryck</a>
+                        <a class="nav-link" href="#">Boka idag</a>                       
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+<section id="bokningar" class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="display-5 fw-bold">Boka din upplevelse</h2>
+        <p class="lead">Välj ett erbjudande och anpassa bokningen efter ditt sällskap.</p>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="images/beach.jpg" class="card-img-top"
+                     alt="Stränder och pool" style="height: 220px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="h5">Stränder & pool</h3>
+                    <p>En avkopplande dag med sol, bad och tillgång till pool.</p>
+                    <p class="fw-bold text-primary">250 kr/person</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="images/tours.jpg" class="card-img-top"
+                     alt="Guidade turer" style="height: 220px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="h5">Turer</h3>
+                    <p>Upptäck Atens sevärdheter och historia med en guidad tur.</p>
+                    <p class="fw-bold text-primary">400 kr/person</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="images/sports.jpg" class="card-img-top"
+                     alt="Sportaktiviteter" style="height: 220px; object-fit: cover;">
+                <div class="card-body">
+                    <h3 class="h5">Sporter</h3>
+                    <p>Håll igång med roliga sportaktiviteter i Atens miljöer.</p>
+                    <p class="fw-bold text-primary">350 kr/person</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mx-auto" style="max-width: 650px;">
+        <div class="card-body p-4">
+            <h3 class="h4 mb-4">Din bokning</h3>
+
+            <form id="bookingForm">
+                <div class="mb-3">
+                    <label for="offer" class="form-label">Välj erbjudande</label>
+                    <select id="offer" class="form-select" required>
+                        <option value="beach">Stränder & pool</option>
+                        <option value="tours">Turer</option>
+                        <option value="sports">Sporter</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="people" class="form-label">Antal personer</label>
+                    <select id="people" class="form-select" required>
+                        <option value="1">1 person</option>
+                        <option value="2">2 personer</option>
+                        <option value="3">3 personer</option>
+                        <option value="4">4 personer</option>
+                        <option value="5">5 personer</option>
+                    </select>
+                </div>
+
+                <div class="bg-light rounded p-3 mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Erbjudande:</span>
+                        <span id="selectedOffer">Stränder & pool</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Pris per person:</span>
+                        <span id="pricePerPerson">250 kr</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Antal personer:</span>
+                        <span id="numberOfPeople">1</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>Totalpris:</strong>
+                        <strong id="totalPrice" class="fs-3 text-primary">250 kr</strong>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        Boka
+                    </button>
+                    <button type="button" id="resetBooking"
+                            class="btn btn-outline-secondary">
+                        Återställ
+                    </button>
+                </div>
+
+                <p id="bookingMessage" class="mt-3 mb-0"
+                   role="status" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn. -->
+     <script src="js\alex.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
