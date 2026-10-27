@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title> TEST </title>
+    <link href="css/travel.css" rel="stylesheet">
+    <title>Aten - Ta dig runt</title>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm">
             <div class="container-xl">
-                <a class="navbar-brand fs-3 fw-semibold text-primary" href="#">Aten</a>
+                <a class="navbar-brand fs-3 fw-semibold text-primary" href="../index.html">Aten</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="navbar-nav ms-auto">
-                        <a class="nav-link" href="#">Historia</a>
-                        <a class="nav-link" href="#">Aktiviteter</a>
+                        <a class="nav-link" href="../Daniel/historia.html">Historia</a>
+                        <a class="nav-link" href="../Alexander/index.html">Upplevelser</a>
                         <a class="nav-link" href="#">Mat & dryck</a>
-                        <a class="nav-link text-primary" href="#">Planera resan</a>
+                        <a class="nav-link text-primary" href="#">Ta dig runt</a>
                     </div>
                 </div>
             </div>
@@ -28,52 +29,130 @@
 
     <main>
         <section>
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselTravel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="images/OWN-GettingAround-ComingToAthens.jpg" class="d-block w-100" alt="...1">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                        <img src="images/MCH-GettingAround-PublicTransport.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...1">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-2 fw-bold">Kollektivtrafiken</h1>
+                                <p class="fs-4 mb-4 px-5">Atens kollektivtrafik är pålitlig, prisvärd och täcker stora delar av staden.</p>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
+                            </div>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/athens-airport-hd.jpg" class="d-block w-100" alt="...2">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                        <img src="images/TGR-GettingAround-CarRental.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...2">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-2 fw-bold">Hyr en bil</h1>
+                                <p class="fs-4 mb-4 px-5">Utforska Aten och närområdet på dina villkor med en bil.</p>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
+                            </div>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/athens-airport-hd.jpg" class="d-block w-100" alt="...3">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                        <img src="images/TGR-GettingAround-Cycling.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-2 fw-bold">Hyr en cykel</h1>
+                                <p class="fs-4 mb-4 px-5">Upplev Aten med friheten av en cykel.</p>
+                                <a class="btn btn-primary btn-lg" href="#offerSection">Boka idag</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselTravel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselTravel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+        </section>
 
+        <section id="offerSection">
+            <h2 class="text-center py-5">Välj erbjudande</h2>
+            <div class="container offerGrid">
+           <!-- <article class="offerItem">
+                    <input type="checkbox" name="offerAccordion" class="offerInput" id="offerA">
+                    <label for="offerA" class="offerTitle">
+                        <h3>Kollektivtrafik</h3>
+                    </label>
+                    <div class="offerInfo">
+                        <p class="offerDesc">The Athens public transport system is affordable, reliable and covers most of the city and suburbs. You can use all means of public transport using the same ticket/card!</p>
+                        <p class="offerPrice">Pris: 100 kr/dag</p>
+                        <button class="btn btn-primary">Boka ditt dagskort här!</button>
+                    </div>
+                </article> -->
+            </div>
 
+        </section>
 
+        <section class="container" id="formSection">
+            
+            <h3 class="formTitle text-center"></h3>
 
+            <form class="formGrid mx-auto" novalidate>
+
+                <div class="formItem" id="fname">
+                    <label for="firstName">Förnamn</label>
+                    <input type="text" id="firstName" required>
+                    <p class="invalidText"></p>
+                </div>
+
+                <div class="formItem" id="lname">
+                    <label for="lastName">Efternamn</label>
+                    <input type="text" id="lastName" required>
+                    <p class="invalidText"></p>
+                </div>
+
+                <div class="formItem" id="mail">
+                    <label for="email">E-post</label>
+                    <input type="email" id="email" required>
+                    <p class="invalidText"></p>
+                </div>
+
+                <div class="formItem" id="days">
+                    <label for="numberOfDays">Antal dagar (1-5)</label>
+                    <input type="text" id="numberOfDays" required>
+                    <p class="invalidText"></p>     
+                </div>
+
+                <div class="formItem" id="price">
+                    <p>Totalt pris:</p>
+                    <div id="formPrice">- kr</div>
+                </div>
+
+                <div class="formBtns">
+                    <button type="submit" class="btn btn-primary">Skicka bokningsförfrågan</button>
+                    <button type="button" class="btn btn-secondary" id="resetBtn">Börja om</button>
+                </div>
+            </form>
+
+            <article class="bookingCard mx-auto">
+                <p class="bookingText1">Bokning av bil</p>
+                <p class="bookingText2">För: Anders Andersson</p>
+                <p class="bookingText3">Antal dagar: 5</p>
+                <p class="bookingText4">Totalt pris: 1000 kr</p>
+                <span class="bookingText5">kvitto: </span>
+            </article>
         </section>
     </main>
 
-    <!-- Bootstrap bundle behövs för den kollapsande mobilmenyn. -->
+    <footer>
+        
+    </footer>
+
+
+    <script src="js/travel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
