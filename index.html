@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- Gemensam navigation. navbar-expand-lg fäller ihop länkarna på mindre skärmar. -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg bg-light shadow-sm">
         <div class="container">
             <a class="navbar-brand fs-3 fw-semibold text-primary" href="#home">Aten</a>
             <!-- Knappen visar/döljer mobilmenyn med Bootstrap JavaScript. -->
@@ -19,61 +19,61 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="daniel/historia.html">Historia</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Viktor/aktiviteter.html">Aktiviteter</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Alexander/alex.html">Planera resan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Alexander/alex.html">Aktiviteter</a></li>
                     <li class="nav-item"><a class="nav-link" href="william/mat-och-dryck.html">Mat & dryck</a></li>
-                    <li class="nav-item"><a class="nav-link text-primary" href="#bokningar">Boka idag</a></li>
+                    <li class="nav-item"><a class="nav-link" href="viktor/viktor.html">Ta dig runt</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main>
+    <main class="bg-light">
         <section>
             <div id="carouselTravel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselTravel" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="images/NQMIQ.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...1">
+                        <img src="images/NQMIQ-pano.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...1">
                         <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
                             <div class="container text-center d-flex flex-column align-items-center justify-content-center p-5">
                                 <h1 class="display-3 fw-bold">Historia & kultur</h1>
                                 <p class="fs-4 mb-4">Upptäck Atens historia genom museets samlingar.</p>
-                                <a class="btn btn-primary btn-lg mt-5" href="#bokningar">Läs mer!</a>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Läs mer!</a>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/TGR-GettingAround-CarRental.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...2">
+                        <img src="images/beach.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...2">
                         <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
                             <div class="container text-center">
-                                <h1 class="display-3 fw-bold">Aktiviteter</h1>
-                                <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
-                                <a class="btn btn-primary btn-lg mt-5" href="#bokningar">Boka idag</a>
+                                <h1 class="display-3 fw-bold">Upplevelser</h1>
+                                <p class="fs-4 mb-4 px-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Läs mer!</a>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="10000">
-                        <img src="images/TGR-GettingAround-Cycling.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
-                            <div class="container text-center">
-                                <h1 class="display-3 fw-bold">Planera din resa</h1>
-                                <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
-                                <a class="btn btn-primary btn-lg mt-5" href="#bokningar">Boka idag</a>
-                            </div>
-                        </div>
-                    </div>
-                                        <div class="carousel-item" data-bs-interval="10000">
                         <img src="images/TGR-GettingAround-Cycling.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
                         <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
                             <div class="container text-center">
                                 <h1 class="display-3 fw-bold">Mat & Dryck</h1>
-                                <p class="fs-4 mb-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
-                                <a class="btn btn-primary btn-lg mt-5" href="#bokningar">Boka idag</a>
+                                <p class="fs-4 mb-4 px-4">Boende, upplevelser och goda måltider i Greklands historiska huvudstad.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Läs mer!</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="10000">
+                        <img src="images/travel-pano.jpg" style="min-height: 500px; max-height: 700px;" class="d-block w-100 object-fit-cover" alt="...3">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex align-items-center text-white">
+                            <div class="container text-center">
+                                <h1 class="display-3 fw-bold">Ta dig runt</h1>
+                                <p class="fs-4 mb-4 px-4">Upplev staden på dina villkor.</p>
+                                <a class="btn btn-primary btn-lg" href="#bokningar">Läs Mer!</a>
                             </div>
                         </div>
                     </div>
@@ -129,12 +129,21 @@
                         </div>
                     </article>
                 </div>
+                <div class="col-md-6">
+                    <article class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h3 class="h4">Ta dig runt</h3>
+                            <p class="fs-5 text-secondary">Ta dig runt i aten med bil, cykel eller kollektivtrafiken. Vi erbjuder bra priser för det alternativ som passar just dig!</p>
+                            <a class="btn btn-primary btn-lg w-100 mt-auto" href="Viktor/viktor.html">Boka idag</a>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-dark py-4">
-        <div class="container text-center text-white-50 small">GRUPP 8 - PORJECT ATHENA</div>
+    <footer class="bg-light py-4">
+        <div class="container text-center text-dark-50 small">GRUPP 8 - PORJECT ATHENA</div>
     </footer>
 
     <!-- Bootstrap bundle behövs för att mobilmenyn ska öppnas och stängas. Jag antar att denna JS-fuktion är ok och inte anses som fusk.-->
