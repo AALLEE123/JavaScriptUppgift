@@ -201,12 +201,19 @@ function validateName(input) {
         addError(input,'endast dubbel eller trippelnamn är giltiga');
         return false;
     }
-    nameParts.forEach (part => {
-        if (part.length < 2) {
+
+    for (let i = 0; i < nameParts.length; i++) {
+        if (nameParts[i].length < 2) {
             addError(input,'Namnet får inte vara mindre än två bokstäver');
             return false;
         }
-    })
+    }
+    // nameParts.forEach (part => {
+    //     if (part.length < 2) {
+    //         addError(input,'Namnet får inte vara mindre än två bokstäver');
+    //         return false;
+    //     }
+    // })
 
     removeError(input);
     return true;
