@@ -1,7 +1,4 @@
-
-// ERBJUDANDEN
-// Varje erbjudande är ett objekt.
-// Alla erbjudanden samlas i en array som heter offers.
+// Erbjudanden och tillåtna antal personer.
 const offers = [
     {
         id: "acropolis",
@@ -23,49 +20,29 @@ const offers = [
     }
 ];
 
-// Tillåtna gränser för antal personer.
 const MIN_GUESTS = 1;
 const MAX_GUESTS = 5;
 const GUESTS_ERROR = `Ange ett heltal mellan ${MIN_GUESTS} och ${MAX_GUESTS} personer.`;
+const NO_OFFER_MESSAGE = "Välj ett erbjudande för att se totalpriset.";
 
-
-
-// HÄMTA ELEMENT FRÅN HTML
-
-
-// Hämta platsen där erbjudandena ska visas
+// Hämta fälten och platserna för meddelanden.
 const offersContainer = document.querySelector("#offers");
 const offerError = document.querySelector("#offerError");
-
-// Hämta namn- och e-postfälten samt platserna för deras felmeddelanden
 const visitorName = document.querySelector("#visitorName");
 const visitorEmail = document.querySelector("#visitorEmail");
 const nameError = document.querySelector("#nameError");
 const emailError = document.querySelector("#emailError");
-
-// Hämta inputfältet där användaren skriver antal personer
 const guests = document.querySelector("#guests");
-
-// Hämta platsen där ett felmeddelande om antal personer visas
 const guestsError = document.querySelector("#guestsError");
-
-// Hämta platsen för totalpriset
 const totalPrice = document.querySelector("#totalPrice");
 const bookingForm = document.querySelector("#bookingForm");
 const resetButton = document.querySelector("#resetButton");
+const confirmation = document.querySelector("#confirmation");
 
-// Ange standardvärdet här i JavaScript i stället för i HTML.
-guests.value = "1";
-
-
-
-// VISA ERBJUDANDENA PÅ SIDAN
-
-
+// Bygg ett kort för varje erbjudande.
 function showOffers() {
     let offersHTML = "";
 
-    // Loopen går igenom ett erbjudande i taget och lägger till dess HTML.
     for (let i = 0; i < offers.length; i++) {
         const offer = offers[i];
         offersHTML += `
@@ -85,83 +62,37 @@ function showOffers() {
         `;
     }
 
-    // Visa alla erbjudanden på sidan.
     offersContainer.innerHTML = offersHTML;
 }
 
-
-
-// RÄKNA UT OCH VISA PRISET
-
-
-function calculatePrice() {
-    // Hämta det radioalternativ som användaren har valt
-    const selectedOffer = document.querySelector('input[name="offer"]:checked');
-
-    // Om inget erbjudande är valt visar vi ingen uträkning
-    if (selectedOffer ===  null) {
-        totalPrice.textContent = "Välj ett erbjudande för att se totalpriset.";
-        return;
-    }
-
-    // Visa inget pris om antalet inte kan användas, men validera inte fältet här.
-    const numberOfGuests = Number(guests.value);
-    if (!Number.isInteger(numberOfGuests) ||
-        numberOfGuests < MIN_GUESTS ||
-        numberOfGuests > MAX_GUESTS) {
-        totalPrice.textContent = "-";
-        return;
-    }
-
-    // Leta upp erbjudandet i arrayen med hjälp av dess id
-    const offer = offers.find(function (item) {
-        return item.id === selectedOffer.value;
-    });
-
-    // Multiplicera priset per person med antalet personer
-    const total = offer.price * numberOfGuests;
-
-    // Visa totalpriset på sidan
-    totalPrice.textContent = total + " kr";
+// Kontrollera att antalet ligger inom tillåtna gränser.
+function isValidGuestCount(numberOfGuests) {
+    return Number.isInteger(numberOfGuests) &&
+        numberOfGuests >= MIN_GUESTS &&
+        numberOfGuests <= MAX_GUESTS;
 }
 
-
-
-// VALIDERRINGSFUNKTIONERNA
-
-
+// Kontrollera att namn och e-post har giltiga värden.
 function validateName() {
-    // trim tar bort blanksteg i början och slutet av namnet.
-    if (visitorName.value.trim() === "") {
-        nameError.textContent = "Ange ditt namn.";
-        return false;
-    }
-
-    nameError.textContent = "";
-    return true;
+    const nameIsValid = visitorName.value.trim() !== "";
+    nameError.textContent = nameIsValid ? "" : "Ange ditt namn.";
+    return nameIsValid;
 }
 
 function validateEmail() {
     const email = visitorEmail.value.trim();
-
-    // Kontrollera att adressen har text före och efter @, en punkt i domänen
-    // och inga blanksteg.
     const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    if (!emailIsValid) {
-        emailError.textContent = "Ange en giltig e-postadress, till exempel namn@exempel.se.";
-        return false;
-    }
-
-    emailError.textContent = "";
-    return true;
+    emailError.textContent = emailIsValid
+        ? ""
+        : "Ange en giltig e-postadress, till exempel namn@exempel.se.";
+    return emailIsValid;
 }
 
+// Visa fel om antal personer eller erbjudande saknas.
 function validateGuests() {
     const numberOfGuests = Number(guests.value);
-    const guestsAreValid = Number.isInteger(numberOfGuests) &&
-        numberOfGuests >= MIN_GUESTS &&
-        numberOfGuests <= MAX_GUESTS;
+    const guestsAreValid = isValidGuestCount(numberOfGuests);
 
     guestsError.textContent = guestsAreValid ? "" : GUESTS_ERROR;
     return guestsAreValid;
@@ -175,40 +106,95 @@ function validateOffer() {
     return offerIsValid;
 }
 
-// Rensa felmeddelanden när formuläret återställs.
+// Uppdatera priset när erbjudande eller antal ändras.
+function calculatePrice() {
+    const selectedOffer = document.querySelector('input[name="offer"]:checked');
+
+    if (selectedOffer === null) {
+        totalPrice.textContent = NO_OFFER_MESSAGE;
+        return;
+    }
+
+    const numberOfGuests = Number(guests.value);
+    if (!isValidGuestCount(numberOfGuests)) {
+        totalPrice.textContent = "-";
+        return;
+    }
+
+    const offer = offers.find(function (item) {
+        return item.id === selectedOffer.value;
+    });
+
+    totalPrice.textContent = offer.price * numberOfGuests + " kr";
+}
+
+// Visa bokningsbekreftelsen när formuläret är godkänt.
+function showConfirmation() {
+    const selectedOffer = document.querySelector('input[name="offer"]:checked');
+    const offer = offers.find(function (item) {
+        return item.id === selectedOffer.value;
+    });
+    const numberOfGuests = Number(guests.value);
+
+    confirmation.innerHTML = `
+        <div class="alert alert-success">
+            <h3>Bokning bekräftad</h3>
+            <p><strong>Namn:</strong> <span id="confirmationName"></span></p>
+            <p><strong>E-post:</strong> <span id="confirmationEmail"></span></p>
+            <p><strong>Erbjudande:</strong> ${offer.name}</p>
+            <p><strong>Antal personer:</strong> ${numberOfGuests}</p>
+            <p><strong>Totalpris:</strong> ${offer.price * numberOfGuests} kr</p>
+        </div>
+    `;
+
+    // Lägg in texten säkert, utan att tolka den som HTML.
+    confirmation.querySelector("#confirmationName").textContent = visitorName.value.trim();
+    confirmation.querySelector("#confirmationEmail").textContent = visitorEmail.value.trim();
+
+    // Lås formuläret, men låt användaren börja om.
+    const formElements = bookingForm.querySelectorAll("input, button");
+    formElements.forEach(function (element) {
+        element.disabled = element !== resetButton;
+    });
+}
+
+// Rensa fält och felmeddelanden när användaren börjar om.
 function resetForm() {
-    // reset namn, e-post och valt erbjudande.
     bookingForm.reset();
+    bookingForm.querySelectorAll("input, button").forEach(function (element) {
+        element.disabled = false;
+    });
 
     nameError.textContent = "";
     emailError.textContent = "";
     offerError.textContent = "";
     guestsError.textContent = "";
     guests.value = "1";
-    totalPrice.textContent = "Välj ett erbjudande för att se totalpriset.";
+    totalPrice.textContent = NO_OFFER_MESSAGE;
+    confirmation.innerHTML = "";
 }
 
-
-
-// STARTA OCH LYSSNA PÅ ÄNDRINGAR
-
-
-// Skapa och visaoffers när html laddas
+// Sätt startvärde och visa erbjudandena.
+guests.value = "1";
 showOffers();
 
-// Lyssna på ändringar i erbjudandelistan och antalet personer
+// Uppdatera priset när användaren gör ett val.
 offersContainer.addEventListener("change", calculatePrice);
 guests.addEventListener("input", calculatePrice);
 
-// Kontrollera namn och e-post när formuläret skickas.
+// Validera alla fält innan bekräftelsen visas.
 bookingForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    validateName();
-    validateEmail();
-    validateGuests();
-    validateOffer();
+    const nameIsValid = validateName();
+    const emailIsValid = validateEmail();
+    const guestsAreValid = validateGuests();
+    const offerIsValid = validateOffer();
+
+    if (nameIsValid && emailIsValid && guestsAreValid && offerIsValid) {
+        showConfirmation();
+    }
 });
 
-// Kör resetForm när användaren trycker på "Börja om".
+// Återställ bokningen vid klick på "Börja om".
 resetButton.addEventListener("click", resetForm);
