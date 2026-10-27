@@ -42,7 +42,7 @@ Webbplatsen ska låta användaren:
 | **Alexander** | Aktiviteter | HTML, CSS och JavaScript för Activity-sidan |
 | **Daniel** | Historia | HTML, CSS och JavaScript för History-sidan |
 | **Viktor** | Planera resan | HTML, CSS och JavaScript för Plan Your Trip-sidan |
-| **William?** | Mat & Dryck / Resort | HTML, CSS och JavaScript för Eat & Drink / Resort-sidan |
+| **William** | Mat & Dryck / Resort | HTML, CSS och JavaScript för Eat & Drink / Resort-sidan |
 
 ---
 
@@ -105,7 +105,7 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 
 ### Mat & Dryck / Resort
 
-**Ansvarig:** William?
+**Ansvarig:** William
 
 - 
 - 
