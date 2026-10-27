@@ -103,14 +103,6 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 - 
 - 
 
-### Ta dig runt - Viktor
-
-**Ansvarig:** Viktor
-
-- Valde att inte ha ifyllt "1" på antal dagar, då jag inte vill att man kan råka skicka formuläret innan man har valt vad man faktiskt vill ha.
-- Valde också type=text input på antal dagar för att jag inte ville ha pilarna som kom med type=number.
-- 
-
 ### Mat & Dryck / Resort
 
 **Ansvarig:** William?
@@ -119,6 +111,13 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 - 
 - 
 
+### Ta dig runt - Viktor
+
+**Ansvarig:** Viktor
+
+- Valde att inte ha ifyllt "1" på antal dagar, då jag inte vill att man kan råka skicka formuläret innan man har valt vad man faktiskt vill ha.
+- Valde också type=text input på antal dagar för att jag inte ville ha pilarna som kom med type=number.
+- 
 
 
 
