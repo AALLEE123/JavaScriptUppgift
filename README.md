@@ -95,7 +95,7 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 - 
 - 
 
-### Historia – Daniel
+### Historia
 
 **Ansvarig:** Daniel
 
@@ -111,7 +111,7 @@ Detta avsnitt används för personliga anteckningar, idéer och uppgifter för r
 - 
 - 
 
-### Ta dig runt - Viktor
+### Ta dig runt
 
 **Ansvarig:** Viktor
 
