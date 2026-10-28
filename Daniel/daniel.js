@@ -17,6 +17,12 @@ const offers = [
         name: "Historisk stadsvandring",
         description: "Se historiska kvarter och landmärken till fots.",
         price: 250
+    },
+        {
+        id: "test",
+        name: "Fjärde erbjudandet",
+        description: "fjärde erbjudandet.",
+        price: 69
     }
 ];
 
@@ -137,19 +143,48 @@ function showConfirmation() {
     const numberOfGuests = Number(guests.value);
 
     confirmation.innerHTML = `
-        <div class="alert alert-success">
-            <h3>Bokning bekräftad</h3>
-            <p><strong>Namn:</strong> <span id="confirmationName"></span></p>
-            <p><strong>E-post:</strong> <span id="confirmationEmail"></span></p>
-            <p><strong>Erbjudande:</strong> ${offer.name}</p>
-            <p><strong>Antal personer:</strong> ${numberOfGuests}</p>
-            <p><strong>Totalpris:</strong> ${offer.price * numberOfGuests} kr</p>
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="modal-header bg-success text-white border-0 p-4">
+                        <div>
+                            <span class="badge rounded-pill bg-white text-success mb-2">Bokningen är klar</span>
+                            <h2 class="modal-title fs-4" id="confirmationTitle">Bokning bekräftad</h2>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Stäng"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <p class="text-secondary mb-3">Här är en sammanfattning av din bokning.</p>
+                        <div class="bg-light rounded-3 p-3">
+                            <p class="d-flex justify-content-between gap-3 mb-2">
+                                <strong>Namn</strong><span id="confirmationName" class="text-end"></span>
+                            </p>
+                            <p class="d-flex justify-content-between gap-3 mb-2">
+                                <strong>E-post</strong><span id="confirmationEmail" class="text-end"></span>
+                            </p>
+                            <p class="d-flex justify-content-between gap-3 mb-2">
+                                <strong>Erbjudande</strong><span class="text-end">${offer.name}</span>
+                            </p>
+                            <p class="d-flex justify-content-between gap-3 mb-2">
+                                <strong>Antal personer</strong><span>${numberOfGuests}</span>
+                            </p>
+                            <p class="d-flex justify-content-between gap-3 border-top pt-3 mb-0 fs-5">
+                                <strong>Totalpris</strong><strong>${offer.price * numberOfGuests} kr</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 px-4 pb-4">
+                        <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">Stäng</button>
+                    </div>
+                </div>
+            </div>
         </div>
     `;
 
     // Lägg in texten säkert, utan att tolka den som HTML.
     confirmation.querySelector("#confirmationName").textContent = visitorName.value.trim();
     confirmation.querySelector("#confirmationEmail").textContent = visitorEmail.value.trim();
+    bootstrap.Modal.getOrCreateInstance(confirmation.querySelector("#confirmationModal")).show();
 
     // Lås formuläret, men låt användaren börja om.
     const formElements = bookingForm.querySelectorAll("input, button");
