@@ -18,12 +18,6 @@ const offers = [
         description: "Se historiska kvarter och landmärken till fots.",
         price: 250
     },
-        {
-        id: "test",
-        name: "Fjärde erbjudandet",
-        description: "fjärde erbjudandet.",
-        price: 69
-    }
 ];
 
 const MIN_GUESTS = 1;
@@ -209,7 +203,7 @@ function resetForm() {
     confirmation.innerHTML = "";
 }
 
-// Sätt startvärde och visa erbjudandena.
+// start
 guests.value = "1";
 showOffers();
 
