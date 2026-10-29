@@ -258,7 +258,7 @@ function validateEmail(input) {
         return false;
     }
     
-    // Kontrollerar att username är mellan 1 och 64 tecken lång och endast innehåller bokstäver, siffror, understreck, bindestreck och punkter.
+    // Kontrollerar att username endast innehåller bokstäver, siffror, understreck, bindestreck och punkter.
     // Punkten får inte stå först eller sist, och flera punkter får inte stå direkt efter varandra.
     if (!/^[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(username)) {
         addError(input,'Mailadressen behöver ett giltigt användarnamn');
@@ -273,7 +273,6 @@ function validateEmail(input) {
     }
 
     for (let i = 0; i < domainParts.length; i++) {
-        console.log(domainParts[i])
         if (domainParts[i] === '') {
             addError(input,'Domän-delarna får inte vara tomma');
             return false;
