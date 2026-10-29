@@ -1,29 +1,32 @@
+// Declare offers
 
 const offers = [
     {
         id: "beach",
         name: "Stränder & pool",
         description: "En avkopplande dag med sol, bad och tillgång till pool.",
-        pricePerHour: 250,
+        pricePerPerson: 250,
         imageUrl: "images/beach.jpg"
     },
     {
         id: "tours",
         name: "Turer",
         description: "Upptäck Atens sevärdheter och historia med en guidad tur.",
-        pricePerHour: 400,
+        pricePerPerson: 400,
         imageUrl: "images/tours.jpg"
     },
     {
         id: "sports",
         name: "Sporter",
         description: "Träna i Atens vackeraste miljöer med våra sportturer.",
-        pricePerHour: 350,
+        pricePerPerson: 350,
         imageUrl: "images/sports.jpg"
     }
 ];
 
 let selectedOffer = null;
+
+// Offer functions
 
 function renderOffers() {
   // map ger en ny array med ett kort per lokal. join gör om arrayen till en enda text.
@@ -32,6 +35,7 @@ function renderOffers() {
 }
 
 function createOfferCard(offer) {
+    // Skapar ett kort för varje lokal med informationen från objektet.
   return `
     <div class="col-md-4 ">
         <div class="card h-100 shadow-sm cardMain">
@@ -41,7 +45,7 @@ function createOfferCard(offer) {
                 <h3 class="h5">${offer.name}</h3>
                 <p>${offer.description}</p>
                 <div class="d-flex justify-content-between align-items-center mt-auto">
-                    <p class="fw-bold text-primary mb-0">${offer.pricePerHour} kr/person</p>
+                    <p class="fw-bold text-primary mb-0">${offer.pricePerPerson} kr/person</p>
                     <button class="btn btn-primary" id=${offer.id}>Boka</button>
                 </div>
             </div>
@@ -50,17 +54,63 @@ function createOfferCard(offer) {
   `;
 }
 
+function selectOffer() {
+    // När vi trycker på en av knapparna ska vi markera den valda knappen, spara det valda erbjudandet och visa formuläret med informationen från det valda erbjudandet.
+    offers.forEach(offer => {
+        const offerButton = document.getElementById(offer.id);
+
+        offerButton.addEventListener('click', () => {
+
+            // Ta bort markeringen från alla knappar
+            offers.forEach(otherOffer => {
+                const otherButton = document.getElementById(otherOffer.id);
+                unmarkOffer(otherButton);
+            });
+
+            // Markera den valda knappen
+            // offerButton.classList.add('Selected');
+            markOffer(offerButton);
+
+            // Spara det valda erbjudandet
+            selectedOffer = offer;
+
+            // Visa, nollställ och uppdatera formulär
+            showForm()
+            clearForm()
+            updateFormInfo()
+
+            // Dölj bokningsbekräftels
+            hideBooking()
+        });
+    });
+}
+
+function markOffer (offerButton) {
+    // Den här funktionen markerar den valda knappen.
+    offerButton.classList.add('Selected');
+}
+
+function unmarkOffer (offerButton) {
+    // Den här funktionen tar bort markeringen från den valda knappen.
+    offerButton.classList.remove('Selected');
+}
+
+// Form functions
+
 function showForm () {
+    // När vi trycker på en av knapparna ska vi visa formuläret.
     const form = document.getElementById('form')
     form.classList.add('active')
 }
 
 function hideForm () {
+    // Den här funktionen gömmer formuläret.
     const form = document.getElementById('form')
     form.classList.remove('active')
 }
 
 function clearForm () {
+    // Den här funktionen nollställer formuläret och tar bort eventuella felmeddelanden.
     const firstName = document.getElementById("firstName");
     firstName.value = ''
     removeError(firstName)
@@ -75,65 +125,18 @@ function clearForm () {
     removeError(people)
 }
 
-function resetBooking () {
-    const resetButton = document.getElementById('resetBooking');
-    resetButton.addEventListener('click', () => {
-        hideForm()
-        clearForm()
-
-    })
-}
-
-// När vi trycker på boka-knappen ska vi validera formuläret och om allt är korrekt fyllt i ska vi visa bokningsbekräftelsen med informationen från formuläret.
-
-function confirmBooking () {
-    // Definiera en variabel för formuläret
-    const bookingForm = document.getElementById('bookingForm');
-    // Lägg till en eventlyssnare för formulärets submit-händelse
-    bookingForm.addEventListener('submit', function(event) {
-        // Förhindra att formuläret skickas och sidan laddas om
-        event.preventDefault();
-        // Samla alla fel i en array
-        const errors = []
-        // Validera varje fält och lägg till false i errors-arrayen om valideringen misslyckas
-        const firstName = document.getElementById('firstName')
-        if (!validateName(firstName)) {
-            errors.push(false)
-        }
-        const lastName = document.getElementById('lastName')
-        if (!validateName(lastName)) {
-            errors.push(false)
-        }
-        const email = document.getElementById('email')
-        if (!validateEmail(email)) {
-            errors.push(false)
-        }
-        const people = document.getElementById('people')
-        if (!validatePeople(people)) {
-            errors.push(false)
-        }
-        // Om det finns några fel i errors-arrayen, returnerar vi och gör inget mer.
-        if (errors.includes(false)) {
-            return
-        }
-        // Om alla fält är korrekt ifyllda, döljer vi formuläret och visar bokningsbekräftelsen med informationen från formuläret.
-        hideForm()
-        showBooking()
-        updateBookingInfo(selectedOffer.name, firstName.value, lastName.value, email.value, people.value, totalPrice(people.value,selectedOffer.pricePerHour))
-
-
-    });
-}
-
 function updateFormInfo() {
+    // Den här funktionen uppdaterar formuläret med informationen från det valda erbjudandet.
     const formTitle = document.getElementById("formTitle");
     formTitle.textContent = selectedOffer.name
 
     const formPrice = document.getElementById("formPrice");
-    formPrice.textContent = selectedOffer.pricePerHour + " kr/person"
+    formPrice.textContent = selectedOffer.pricePerPerson + " kr/person"
 
-    updatePrice(selectedOffer.pricePerHour)
+    updatePrice(selectedOffer.pricePerPerson)
 }
+
+// Price functions
 
 function calculatePrice() {
     const people = document.getElementById("people")
@@ -146,8 +149,8 @@ function calculatePrice() {
         if (validatePeople(people)) {
             numberOfPeople = people.value
 
-            // price = numberOfPeople * selectedOffer.pricePerHour
-            price = totalPrice(numberOfPeople,selectedOffer.pricePerHour)
+            // price = numberOfPeople * selectedOffer.pricePerPerson
+            price = totalPrice(numberOfPeople,selectedOffer.pricePerPerson)
 
             updatePrice(price)
         } else {
@@ -166,7 +169,10 @@ function updatePrice(price) {
     formTotal.textContent = price + " kr"
 }
 
+// Validation and Error functions
+
 function validatePeople(input) {
+    // Funktionen tittar på antalet personer och kontrollerar att det är korrekt ifyllt. Om det inte är det, lägger vi till ett felmeddelande.
     const people = Number(input.value);
 
     if (Number.isInteger(people) && people >= 1 && people <= 5) {
@@ -179,6 +185,7 @@ function validatePeople(input) {
 }
 
 function validateName(input) {
+    // Funktionen tittar på namnet och kontrollerar att det är korrekt ifyllt. Om det inte är det, lägger vi till ett felmeddelande.
     const name = input.value.trim();
     // Namnet är ifyllt och inte bara innehåller blanksteg.
     if (name.includes(' ')) {
@@ -218,6 +225,7 @@ function validateName(input) {
 }
 
 function validateEmail(input) {
+    // Funktionen tittar på e-postadressen och kontrollerar att den är korrekt ifylld. Om den inte är det, lägger vi till ett felmeddelande.
     const email = input.value.trim();
 
     // E-postadressen är ifylld, saknar blanksteg och innehåller ett enda @ med text före och efter.
@@ -250,9 +258,9 @@ function validateEmail(input) {
         return false;
     }
     
-    // Kontrollerar att username är mellan 1 och 64 tecken lång och endast innehåller bokstäver, siffror, understreck, bindestreck och punkter.
+    // Kontrollerar att username endast innehåller bokstäver, siffror, understreck, bindestreck och punkter.
     // Punkten får inte stå först eller sist, och flera punkter får inte stå direkt efter varandra.
-    if (!/^(?=.{1,64}$)[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(username)) {
+    if (!/^[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(username)) {
         addError(input,'Mailadressen behöver ett giltigt användarnamn');
         return false;
     }
@@ -265,7 +273,6 @@ function validateEmail(input) {
     }
 
     for (let i = 0; i < domainParts.length; i++) {
-        console.log(domainParts[i])
         if (domainParts[i] === '') {
             addError(input,'Domän-delarna får inte vara tomma');
             return false;
@@ -282,6 +289,7 @@ function validateEmail(input) {
 }
 
 function addError(input,message) {
+    // Funktionen lägger till ett felmeddelande
     const parentDiv = input.parentElement
     parentDiv.classList.add('error')
     const errorText = parentDiv.querySelector('.errorText')
@@ -289,28 +297,27 @@ function addError(input,message) {
 }
 
 function removeError(input) {
+    // Funktionen tar bort ett felmeddelande
     const parentDiv = input.parentElement
     parentDiv.classList.remove('error')
 }
 
+// Booking
+
 function showBooking(){
+    // När vi trycker på boka-knappen ska vi visa bokningsbekräftelsen.
     const confirmedBooking = document.getElementById('confirmedBooking');
     confirmedBooking.classList.add('active')
 }
 
 function hideBooking(){
+    // Den här funktionen gömmer bokningsbekräftelsen. 
     const confirmedBooking = document.getElementById('confirmedBooking');
     confirmedBooking.classList.remove('active')
 }
 
 function updateBookingInfo(offer, firstName, lastName, email, people, price){
-    // const formTitle = document.getElementById("formTitle");
-    // formTitle.textContent = selectedOffer.name
-
-    // const formPrice = document.getElementById("formPrice");
-    // formPrice.textContent = selectedOffer.pricePerHour + " kr/person"
-
-    // updatePrice(selectedOffer.pricePerHour)
+    // Den här funktionen fyller informationen i bokningsbekräftelsen.  
     
     const bookingActivity = document.getElementById("confirmedActivity");
     bookingActivity.textContent = offer;
@@ -328,37 +335,60 @@ function updateBookingInfo(offer, firstName, lastName, email, people, price){
     bookingTotal.textContent = `${price} kr`
 }
 
-// knappar
+function confirmBooking () {
+    // När vi trycker på boka-knappen ska vi validera formuläret och om allt är korrekt fyllt i ska vi visa bokningsbekräftelsen med informationen från formuläret.
+    
+    // Definiera en variabel för formuläret
+    const bookingForm = document.getElementById('bookingForm');
+    // Lägg till en eventlyssnare för formulärets submit-händelse
+    bookingForm.addEventListener('submit', function(event) {
+        // Förhindra att formuläret skickas och sidan laddas om
+        event.preventDefault();
+        // Samla alla fel i en array
+        const errors = []
+        // Validera varje fält och lägg till false i errors-arrayen om valideringen misslyckas
+        const firstName = document.getElementById('firstName')
+        if (!validateName(firstName)) {
+            errors.push(false)
+        }
+        const lastName = document.getElementById('lastName')
+        if (!validateName(lastName)) {
+            errors.push(false)
+        }
+        const email = document.getElementById('email')
+        if (!validateEmail(email)) {
+            errors.push(false)
+        }
+        const people = document.getElementById('people')
+        if (!validatePeople(people)) {
+            errors.push(false)
+        }
+        // Om det finns några fel i errors-arrayen, returnerar vi och gör inget mer.
+        if (errors.includes(false)) {
+            return
+        }
+        // Om alla fält är korrekt ifyllda, döljer vi formuläret och visar bokningsbekräftelsen med informationen från formuläret.
+        hideForm()
+        showBooking()
+        updateBookingInfo(selectedOffer.name, firstName.value, lastName.value, email.value, people.value, totalPrice(people.value,selectedOffer.pricePerPerson))
 
-function selectOffer() {
-    offers.forEach(offer => {
-        const offerButton = document.getElementById(offer.id);
 
-        offerButton.addEventListener('click', () => {
-
-            // Ta bort markeringen från alla knappar
-            offers.forEach(otherOffer => {
-                const otherButton = document.getElementById(otherOffer.id);
-                otherButton.classList.remove('Selected');
-            });
-
-            // Markera den valda knappen
-            offerButton.classList.add('Selected');
-
-            // Spara det valda erbjudandet
-            selectedOffer = offer;
-
-            // Visa, nollställ och uppdatera formulär
-            showForm()
-            clearForm()
-            updateFormInfo()
-
-            // Dölj bokningsbekräftels
-            hideBooking()
-        });
     });
 }
 
+function resetBooking () {
+    // När vi trycker på återställ-knappen ska vi dölja formuläret och nollställa det.
+    const resetButton = document.getElementById('resetBooking');
+    resetButton.addEventListener('click', () => {
+        hideForm()
+        clearForm()
+        const offerButton = document.getElementById(selectedOffer.id)
+        unmarkOffer(offerButton)
+        selectedOffer = null;
+    })
+}
+
+// Run program
 
 renderOffers()
 selectOffer()
