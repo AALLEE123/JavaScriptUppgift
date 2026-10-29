@@ -90,21 +90,6 @@ function clearForm() {
     updatePrice('-')
 }
 
-function setError(input, message) {
-    // Navigate from input to parent and add class to show error text
-    const parent = input.parentElement;
-    parent.classList.add('error');
-    // find and fill error text with "message"
-    const invalidText = parent.querySelector('.invalidText');
-    invalidText.textContent = message;
-}
-
-function removeError(input) {
-    // Navigate from input to parent and remove class to hide error text
-    const parent = input.parentElement;
-    parent.classList.remove('error');
-}
-
 function updatePrice(price) {
     const formPrice = document.querySelector('#formPrice');
     formPrice.textContent = `${price} kr`;
@@ -146,7 +131,7 @@ function addBookingText(booking) {
     bookingText5.textContent = `kvitto till: ${booking.email}`
 }
 
-// validation functions
+// validation and error functions
 
 function validateInput(input) {
     if (input.id === "numberOfDays") return validateNumber(input)
@@ -265,6 +250,21 @@ function validateNumber(input) {
     return true;
 }
 
+function setError(input, message) {
+    // Navigate from input to parent and add class to show error text
+    const parent = input.parentElement;
+    parent.classList.add('error');
+    // find and fill error text with "message"
+    const invalidText = parent.querySelector('.invalidText');
+    invalidText.textContent = message;
+}
+
+function removeError(input) {
+    // Navigate from input to parent and remove class to hide error text
+    const parent = input.parentElement;
+    parent.classList.remove('error');
+}
+
 // "program" functions
 
 function createOffers() {
@@ -347,10 +347,9 @@ function enableResetBtn() {
 }
 
 function enablePriceCheck() {
-    const numberOfDays = document.querySelector('#numberOfDays');
+    const input = document.querySelector('#numberOfDays');
 
-    numberOfDays.addEventListener('input', e => {
-        const input = e.target;
+    input.addEventListener('input', () => {
         let price = '-';
  
         if (validateNumber(input)) {
@@ -405,6 +404,7 @@ function confirmBooking() {
 }
 
 // run "program"
+
 createOffers();
 enableOfferBtns();
 enableResetBtn();
