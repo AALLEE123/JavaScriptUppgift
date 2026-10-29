@@ -5,21 +5,21 @@ const offers = [
         id: "beach",
         name: "Stränder & pool",
         description: "En avkopplande dag med sol, bad och tillgång till pool.",
-        pricePerHour: 250,
+        pricePerPerson: 250,
         imageUrl: "images/beach.jpg"
     },
     {
         id: "tours",
         name: "Turer",
         description: "Upptäck Atens sevärdheter och historia med en guidad tur.",
-        pricePerHour: 400,
+        pricePerPerson: 400,
         imageUrl: "images/tours.jpg"
     },
     {
         id: "sports",
         name: "Sporter",
         description: "Träna i Atens vackeraste miljöer med våra sportturer.",
-        pricePerHour: 350,
+        pricePerPerson: 350,
         imageUrl: "images/sports.jpg"
     }
 ];
@@ -45,7 +45,7 @@ function createOfferCard(offer) {
                 <h3 class="h5">${offer.name}</h3>
                 <p>${offer.description}</p>
                 <div class="d-flex justify-content-between align-items-center mt-auto">
-                    <p class="fw-bold text-primary mb-0">${offer.pricePerHour} kr/person</p>
+                    <p class="fw-bold text-primary mb-0">${offer.pricePerPerson} kr/person</p>
                     <button class="btn btn-primary" id=${offer.id}>Boka</button>
                 </div>
             </div>
@@ -131,9 +131,9 @@ function updateFormInfo() {
     formTitle.textContent = selectedOffer.name
 
     const formPrice = document.getElementById("formPrice");
-    formPrice.textContent = selectedOffer.pricePerHour + " kr/person"
+    formPrice.textContent = selectedOffer.pricePerPerson + " kr/person"
 
-    updatePrice(selectedOffer.pricePerHour)
+    updatePrice(selectedOffer.pricePerPerson)
 }
 
 // Price functions
@@ -149,8 +149,8 @@ function calculatePrice() {
         if (validatePeople(people)) {
             numberOfPeople = people.value
 
-            // price = numberOfPeople * selectedOffer.pricePerHour
-            price = totalPrice(numberOfPeople,selectedOffer.pricePerHour)
+            // price = numberOfPeople * selectedOffer.pricePerPerson
+            price = totalPrice(numberOfPeople,selectedOffer.pricePerPerson)
 
             updatePrice(price)
         } else {
@@ -260,7 +260,7 @@ function validateEmail(input) {
     
     // Kontrollerar att username är mellan 1 och 64 tecken lång och endast innehåller bokstäver, siffror, understreck, bindestreck och punkter.
     // Punkten får inte stå först eller sist, och flera punkter får inte stå direkt efter varandra.
-    if (!/^(?=.{1,64}$)[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(username)) {
+    if (!/^[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/.test(username)) {
         addError(input,'Mailadressen behöver ett giltigt användarnamn');
         return false;
     }
@@ -371,7 +371,7 @@ function confirmBooking () {
         // Om alla fält är korrekt ifyllda, döljer vi formuläret och visar bokningsbekräftelsen med informationen från formuläret.
         hideForm()
         showBooking()
-        updateBookingInfo(selectedOffer.name, firstName.value, lastName.value, email.value, people.value, totalPrice(people.value,selectedOffer.pricePerHour))
+        updateBookingInfo(selectedOffer.name, firstName.value, lastName.value, email.value, people.value, totalPrice(people.value,selectedOffer.pricePerPerson))
 
 
     });
@@ -385,6 +385,7 @@ function resetBooking () {
         clearForm()
         const offerButton = document.getElementById(selectedOffer.id)
         unmarkOffer(offerButton)
+        selectedOffer = null;
     })
 }
 
