@@ -30,7 +30,8 @@ const offers = [offerA, offerB, offerC];
 let chosenOffer = null; 
 let hasSubmitted = false;
 
-// "basic" functions
+// ----------------- //
+// "basic" functions //
 
 function scrollToSectionId(sectionId) {
     document.getElementById(sectionId).scrollIntoView({
@@ -38,6 +39,8 @@ function scrollToSectionId(sectionId) {
         block: "start"
     })
 }
+
+// offer functions
 
 function setChosenOffer(offer) {
     chosenOffer = offer;
@@ -59,6 +62,8 @@ function unlockOffers() {
         offerInput.classList.add('active');
     })
 }
+
+// form functions
 
 function setFormTitle(message) {
     const formTitle = document.querySelector('.formTitle');
@@ -90,6 +95,8 @@ function clearForm() {
     updatePrice('-')
 }
 
+// price functions
+
 function updatePrice(price) {
     const formPrice = document.querySelector('#formPrice');
     formPrice.textContent = `${price} kr`;
@@ -98,6 +105,8 @@ function updatePrice(price) {
 function calculatePrice(days,offer) {
     return Number(days.trim()) * offer.price;
 }
+
+// booking functions
 
 function createBooking(inputs) {
     const booking = {offer: chosenOffer.title};
@@ -265,7 +274,8 @@ function removeError(input) {
     parent.classList.remove('error');
 }
 
-// "program" functions
+// ------------------- //
+// "program" functions //
 
 function createOffers() {
     const offersDiv = document.querySelector('.offerGrid');
@@ -403,7 +413,8 @@ function confirmBooking() {
     })
 }
 
-// run "program"
+// ------------- //
+// run "program" //
 
 createOffers();
 enableOfferBtns();
