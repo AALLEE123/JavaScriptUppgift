@@ -71,6 +71,13 @@ body {
         .offerPrice {
             font-weight: 500;
             font-size: 1.125rem;
+            @media (width < 370px) {
+                font-size: 1.06125rem;
+            }
+        }
+
+        .offerDesc {
+            text-wrap: balanced;
         }
 
         @media (width < 768px), (width >= 1200px) {

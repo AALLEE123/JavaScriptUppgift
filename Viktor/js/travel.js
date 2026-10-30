@@ -30,7 +30,8 @@ const offers = [offerA, offerB, offerC];
 let chosenOffer = null; 
 let hasSubmitted = false;
 
-// "basic" functions
+// ----------------- //
+// "basic" functions //
 
 function scrollToSectionId(sectionId) {
     document.getElementById(sectionId).scrollIntoView({
@@ -38,6 +39,8 @@ function scrollToSectionId(sectionId) {
         block: "start"
     })
 }
+
+// offer functions
 
 function setChosenOffer(offer) {
     chosenOffer = offer;
@@ -59,6 +62,8 @@ function unlockOffers() {
         offerInput.classList.add('active');
     })
 }
+
+// form functions
 
 function setFormTitle(message) {
     const formTitle = document.querySelector('.formTitle');
@@ -90,20 +95,7 @@ function clearForm() {
     updatePrice('-')
 }
 
-function setError(input, message) {
-    // Navigate from input to parent and add class to show error text
-    const parent = input.parentElement;
-    parent.classList.add('error');
-    // find and fill error text with "message"
-    const invalidText = parent.querySelector('.invalidText');
-    invalidText.textContent = message;
-}
-
-function removeError(input) {
-    // Navigate from input to parent and remove class to hide error text
-    const parent = input.parentElement;
-    parent.classList.remove('error');
-}
+// price functions
 
 function updatePrice(price) {
     const formPrice = document.querySelector('#formPrice');
@@ -113,6 +105,8 @@ function updatePrice(price) {
 function calculatePrice(days,offer) {
     return Number(days.trim()) * offer.price;
 }
+
+// booking functions
 
 function createBooking(inputs) {
     const booking = {offer: chosenOffer.title};
@@ -146,7 +140,7 @@ function addBookingText(booking) {
     bookingText5.textContent = `kvitto till: ${booking.email}`
 }
 
-// validation functions
+// validation and error functions
 
 function validateInput(input) {
     if (input.id === "numberOfDays") return validateNumber(input)
@@ -265,7 +259,23 @@ function validateNumber(input) {
     return true;
 }
 
-// "program" functions
+function setError(input, message) {
+    // Navigate from input to parent and add class to show error text
+    const parent = input.parentElement;
+    parent.classList.add('error');
+    // find and fill error text with "message"
+    const invalidText = parent.querySelector('.invalidText');
+    invalidText.textContent = message;
+}
+
+function removeError(input) {
+    // Navigate from input to parent and remove class to hide error text
+    const parent = input.parentElement;
+    parent.classList.remove('error');
+}
+
+// ------------------- //
+// "program" functions //
 
 function createOffers() {
     const offersDiv = document.querySelector('.offerGrid');
@@ -347,10 +357,9 @@ function enableResetBtn() {
 }
 
 function enablePriceCheck() {
-    const numberOfDays = document.querySelector('#numberOfDays');
+    const input = document.querySelector('#numberOfDays');
 
-    numberOfDays.addEventListener('input', e => {
-        const input = e.target;
+    input.addEventListener('input', () => {
         let price = '-';
  
         if (validateNumber(input)) {
@@ -404,7 +413,9 @@ function confirmBooking() {
     })
 }
 
-// run "program"
+// ------------- //
+// run "program" //
+
 createOffers();
 enableOfferBtns();
 enableResetBtn();
