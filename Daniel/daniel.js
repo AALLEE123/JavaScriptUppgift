@@ -1,4 +1,5 @@
-// Erbjudanden och tillåtna antal personer.
+// Här ligger alla erbjudanden samlade, så både korten och bokningsbekräftelsen
+// kan hämta namn och pris från samma ställe.
 const offers = [
     {
         id: "acropolis",
@@ -25,7 +26,8 @@ const MAX_GUESTS = 5;
 const GUESTS_ERROR = `Ange ett heltal mellan ${MIN_GUESTS} och ${MAX_GUESTS} personer.`;
 const NO_OFFER_MESSAGE = "Välj ett erbjudande för att se totalpriset.";
 
-// Hämta fälten och platserna för meddelanden.
+// Vi hämtar fälten en gång här och återanvänder referenserna i validering,
+// prisberäkning och bekräftelsen längre ner.
 const offersContainer = document.querySelector("#offers");
 const offerError = document.querySelector("#offerError");
 const visitorName = document.querySelector("#visitorName");
@@ -39,7 +41,8 @@ const bookingForm = document.querySelector("#bookingForm");
 const resetButton = document.querySelector("#resetButton");
 const confirmation = document.querySelector("#confirmation");
 
-// Bygg ett kort för varje erbjudande.
+// Bygger ett kort per erbjudande. Körs när sidan startar, så nya erbjudanden
+// i listan ovan också dyker upp här utan att vi behöver skriva kortena för hand.
 function showOffers() {
     let offersHTML = "";
 
@@ -65,7 +68,8 @@ function showOffers() {
     offersContainer.innerHTML = offersHTML;
 }
 
-// Kontrollera att antalet ligger inom tillåtna gränser.
+// Samma kontroll används både när priset räknas ut och när formuläret skickas,
+// så vi inte råkar godkänna olika antal på de två ställena.
 function isValidGuestCount(numberOfGuests) {
     return Number.isInteger(numberOfGuests) &&
         numberOfGuests >= MIN_GUESTS &&
@@ -74,8 +78,11 @@ function isValidGuestCount(numberOfGuests) {
 
 // Kontrollera att namn och e-post har giltiga värden.
 function validateName() {
-    const nameIsValid = visitorName.value.trim() !== "";
-    nameError.textContent = nameIsValid ? "" : "Ange ditt namn.";
+    const name = visitorName.value.trim();
+    const nameIsValid = /^[\p{L}]+(?:[ '-][\p{L}]+)*$/u.test(name);
+    nameError.textContent = nameIsValid
+        ? ""
+        : "Ange ett namn med bokstäver. Mellanslag, bindestreck och apostrof går bra.";
     return nameIsValid;
 }
 
@@ -89,7 +96,8 @@ function validateEmail() {
     return emailIsValid;
 }
 
-// Visa fel om antal personer eller erbjudande saknas.
+// De här kontrollerna körs när bokningen skickas. Antalet använder också
+// isValidGuestCount, som prisräkningen återanvänder när användaren ändrar antal.
 function validateGuests() {
     const numberOfGuests = Number(guests.value);
     const guestsAreValid = isValidGuestCount(numberOfGuests);
@@ -106,7 +114,8 @@ function validateOffer() {
     return offerIsValid;
 }
 
-// Uppdatera priset när erbjudande eller antal ändras.
+// Körs när användaren byter erbjudande eller ändrar antal. Samma funktion
+// används alltså för båda fälten, så priset hålls uppdaterat direkt.
 function calculatePrice() {
     const selectedOffer = document.querySelector('input[name="offer"]:checked');
 
@@ -128,7 +137,8 @@ function calculatePrice() {
     totalPrice.textContent = offer.price * numberOfGuests + " kr";
 }
 
-// Visa bokningsbekreftelsen när formuläret är godkänt.
+// Visas först efter att formuläret klarat alla kontroller. Hämtar erbjudandet
+// från samma lista som showOffers använder ovan.
 function showConfirmation() {
     const selectedOffer = document.querySelector('input[name="offer"]:checked');
     const offer = offers.find(function (item) {
@@ -147,18 +157,19 @@ function showConfirmation() {
         </div>
     `;
 
-    // Lägg in texten säkert, utan att tolka den som HTML.
+    // Namn och e-post är användartext, så lägg in den som text och inte HTML.
     confirmation.querySelector("#confirmationName").textContent = visitorName.value.trim();
     confirmation.querySelector("#confirmationEmail").textContent = visitorEmail.value.trim();
 
-    // Lås formuläret, men låt användaren börja om.
+    // Efter bokningen låser vi fälten, men lämnar "Börja om" aktivt.
     const formElements = bookingForm.querySelectorAll("input, button");
     formElements.forEach(function (element) {
         element.disabled = element !== resetButton;
     });
 }
 
-// Rensa fält och felmeddelanden när användaren börjar om.
+// Anropas av "Börja om". Återställer både formuläret och sånt som inte följer
+// med i bookingForm.reset(), som feltexterna och bekräftelsen.
 function resetForm() {
     bookingForm.reset();
     bookingForm.querySelectorAll("input, button").forEach(function (element) {
@@ -174,15 +185,16 @@ function resetForm() {
     confirmation.innerHTML = "";
 }
 
-// Sätt startvärde och visa erbjudandena.
+// Sidans startläge: en person är förvald och erbjudandekorten byggs här.
 guests.value = "1";
 showOffers();
 
-// Uppdatera priset när användaren gör ett val.
+// Båda händelserna använder samma prisfunktion, så ändring av erbjudande och
+// ändring av antal uppdaterar priset på samma sätt, direckt när man ändrar.
 offersContainer.addEventListener("change", calculatePrice);
 guests.addEventListener("input", calculatePrice);
 
-// Validera alla fält innan bekräftelsen visas.
+// Samlar valideringen vid skickning; bekräftelsen visas bara om allt är okej.
 bookingForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -196,5 +208,6 @@ bookingForm.addEventListener("submit", function (event) {
     }
 });
 
-// Återställ bokningen vid klick på "Börja om".
+// Kopplar omstartsknappen till resetForm ovan, som också kan återanvändas
+// om vi senare behöver starta om bokningen från ett annat ställe.
 resetButton.addEventListener("click", resetForm);
