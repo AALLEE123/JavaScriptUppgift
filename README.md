@@ -41,7 +41,7 @@ Webbplatsen ska låta användaren:
 |---|---|---|
 | **Alexander** | Aktiviteter | HTML, CSS och JavaScript för Activity-sidan |
 | **Daniel** | Historia | HTML, CSS och JavaScript för History-sidan |
-| **Viktor** | Planera resan | HTML, CSS och JavaScript för Plan Your Trip-sidan |
+| **Viktor** | Ta dig runt | HTML, CSS och JavaScript för Ta dig runt-sidan |
 | **William** | Mat & Dryck / Resort | HTML, CSS och JavaScript för Eat & Drink / Resort-sidan |
 
 ---
@@ -76,7 +76,7 @@ Vi använder följande prefix för våra Git commits:
 | Branch-namn | Del | Ansvar |
 |---|---|---|
 | landing | Landing page | alla för sin del |
-| Historia | Ta dig runt | Daniel |
+| Historia | Historia | Daniel |
 | upplevelser | Upplevelser | Alexander |
 | fare | Mat & Dryck | William |
 | travel | Ta dig runt | Viktor |
